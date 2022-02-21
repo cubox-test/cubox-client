@@ -3,22 +3,42 @@ import styled from 'styled-components';
 
 function Header() {
   return (
-    <HeaderStyled>
-      <h1>LOGO</h1>
+    <Wrapper>
+      <Heading1>LOGO</Heading1>
       <nav>
-        <ul>
-          <li>
+        <NavItems>
+          <Item>
             <Link to="/signup">회원가입</Link>
-          </li>
-          <li>
+          </Item>
+          <Item>
             <Link to="/signin">로그인</Link>
-          </li>
-        </ul>
+          </Item>
+        </NavItems>
       </nav>
-    </HeaderStyled>
+    </Wrapper>
   );
 }
+const Wrapper = styled.header`
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+`;
 
-const HeaderStyled = styled.header``;
+const Heading1 = styled.h1`
+  display: flex;
+  align-items: center;
+`;
+const Item = styled.li`
+  height: 6.25rem;
+  line-height: 6.25rem;
+`;
+
+const NavItems = styled.ul`
+  display: flex;
+  height: 100%;
+  ${Item} + ${Item} {
+    margin-left: 0.625rem;
+  }
+`;
 
 export default Header;

@@ -4,15 +4,17 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 function Layout({children}: LayoutProps) {
-  return <div>{children}</div>;
+  return <Wrapper>{children}</Wrapper>;
 }
 
+const Wrapper = styled.div`
+  width: 75rem;
+  margin: 0 auto;
+  position: relative;
+`;
+
 Layout.Header = styled.div`
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 25rem;
+  height: 6.25rem;
 `;
 
 export default Layout;
