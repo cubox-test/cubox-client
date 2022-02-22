@@ -1,26 +1,67 @@
 import CommonButton from 'common/Button';
+import useSignUp from 'hooks/SignUp/useSignUp';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 function Form() {
+  const [form, setForm] = useState({
+    email: '',
+    name: '',
+    password: '',
+    confirmPasswrod: '',
+  });
+  const {email, name, password, confirmPasswrod} = form;
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {name: tagName, value} = e.target;
+    if (tagName === 'email') {
+      setForm(prev => ({...prev, email: value}));
+    } else if (tagName === 'name') {
+      setForm(prev => ({...prev, name: value}));
+    } else if (tagName === 'password') {
+      setForm(prev => ({...prev, password: value}));
+    } else {
+      setForm(prev => ({...prev, confirmPasswrod: value}));
+    }
+  };
+  const {signup, message} = useSignUp({email, name, password});
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signup();
+    if (message !== '') {
+      console.log(message);
+    }
+  };
+
   return (
     <Wrapper>
-      <FormStyled>
+      <FormStyled onSubmit={onSubmit}>
         <Heading1>회원정보 입력</Heading1>
         <Label>
           <span>이메일</span>
-          <Input />
+          <Input type="email" name="email" value={email} onChange={onChange} />
         </Label>
         <Label>
           <span>이름</span>
-          <Input />
+          <Input name="name" value={name} onChange={onChange} />
         </Label>
         <Label>
           <span>비밀번호</span>
-          <Input />
+          <Input
+            type="password"
+            name="password"
+            value={password}
+            onChange={onChange}
+          />
         </Label>
         <Label>
           <span>비밀번호확인</span>
-          <Input />
+          <Input
+            type="password"
+            name="confirmPassword"
+            value={confirmPasswrod}
+            onChange={onChange}
+          />
         </Label>
         <Button type="submit">회원가입</Button>
       </FormStyled>
@@ -43,7 +84,7 @@ const FormStyled = styled.form`
   flex-direction: column;
   padding: 0 3.125rem;
   label:nth-of-type(1) {
-    margin-top: 6.25rem;
+    margin-top: 40px;
   }
 `;
 

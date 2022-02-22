@@ -11,11 +11,16 @@ const Wrapper = styled.div`
   width: 75rem;
   margin: 0 auto;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 `;
 
 Layout.Header = styled.div`
   height: 6.25rem;
 `;
+
+Layout.Main = styled.main``;
 
 Layout.AuthMain = styled.main`
   position: fixed;
@@ -23,6 +28,10 @@ Layout.AuthMain = styled.main`
   right: 0;
   top: 0;
   bottom: 0;
+`;
+
+Layout.Footer = styled.div`
+  margin-top: auto;
 `;
 
 export default Layout;
