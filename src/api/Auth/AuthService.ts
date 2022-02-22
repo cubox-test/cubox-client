@@ -14,7 +14,11 @@ class AuthService {
 
   public static async certification(imp_uid: string) {
     try {
-      await apiClient.post(`${baseUrl}/certifications`, {imp_uid});
+      const {data} = await apiClient.post<{unique_key: string}>(
+        `${baseUrl}/certifications`,
+        {imp_uid},
+      );
+      return data;
     } catch (error) {
       throw error;
     }

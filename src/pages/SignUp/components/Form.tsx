@@ -3,7 +3,11 @@ import useSignUp from 'hooks/SignUp/useSignUp';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 
-function Form() {
+interface FormProps {
+  unique_key: string;
+}
+
+function Form({unique_key}: FormProps) {
   const [form, setForm] = useState({
     email: '',
     name: '',
@@ -23,7 +27,7 @@ function Form() {
       setForm(prev => ({...prev, confirmPasswrod: value}));
     }
   };
-  const {signup, message} = useSignUp({email, name, password});
+  const {signup, message} = useSignUp({email, name, password, unique_key});
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
