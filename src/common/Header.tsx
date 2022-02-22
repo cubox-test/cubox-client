@@ -8,7 +8,7 @@ function Header() {
       <nav>
         <NavItems>
           <Item>
-            <Link to="/signup">회원가입</Link>
+            <Link to="/certification">회원가입</Link>
           </Item>
           <Item>
             <Link to="/signin">로그인</Link>

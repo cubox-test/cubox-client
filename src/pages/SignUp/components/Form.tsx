@@ -111,10 +111,6 @@ const Button = styled(CommonButton)`
   width: 80%;
   margin: 1.875rem auto;
   height: 40;
-  background-color: rgba(0, 0, 0, 0.2);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
 `;
 
 export default Form;
