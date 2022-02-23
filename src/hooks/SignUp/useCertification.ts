@@ -13,6 +13,10 @@ const useCertification = () => {
             navigate('/signup', {state: {unique_key}});
           })
           .catch(error => {
+            if (error.response.status === 400) {
+              alert('이미 가입한 회원입니다. 로그인 페이지로 이동합니다.');
+              navigate('/signin');
+            }
             throw error;
           });
       } else {
