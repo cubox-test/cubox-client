@@ -10,24 +10,24 @@ interface FormProps {
 function Form({unique_key}: FormProps) {
   const [form, setForm] = useState({
     email: '',
-    name: '',
     password: '',
+    nickName: '',
     confirmPasswrod: '',
   });
-  const {email, name, password, confirmPasswrod} = form;
+  const {email, nickName, password, confirmPasswrod} = form;
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name: tagName, value} = e.target;
     if (tagName === 'email') {
       setForm(prev => ({...prev, email: value}));
-    } else if (tagName === 'name') {
-      setForm(prev => ({...prev, name: value}));
     } else if (tagName === 'password') {
       setForm(prev => ({...prev, password: value}));
+    } else if (tagName === 'nickName') {
+      setForm(prev => ({...prev, nickName: value}));
     } else {
       setForm(prev => ({...prev, confirmPasswrod: value}));
     }
   };
-  const {signup, message} = useSignUp({email, name, password, unique_key});
+  const {signup, message} = useSignUp({email, nickName, password, unique_key});
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,8 +46,8 @@ function Form({unique_key}: FormProps) {
           <Input type="email" name="email" value={email} onChange={onChange} />
         </Label>
         <Label>
-          <span>이름</span>
-          <Input name="name" value={name} onChange={onChange} />
+          <span>닉네임</span>
+          <Input name="nickName" value={nickName} onChange={onChange} />
         </Label>
         <Label>
           <span>비밀번호</span>
