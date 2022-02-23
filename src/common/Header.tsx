@@ -1,4 +1,4 @@
-import AuthService from 'api/Auth/AuthService';
+import useLogOut from 'hooks/Common/useLogOut';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from './Button';
@@ -8,8 +8,10 @@ interface HeaderProps {
 }
 
 function Header({isAuth}: HeaderProps) {
+  const {logout} = useLogOut();
+
   const onClick = () => {
-    AuthService.logout();
+    logout();
   };
 
   return (
