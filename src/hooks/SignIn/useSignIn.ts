@@ -1,9 +1,10 @@
 import AuthService from 'api/Auth/AuthService';
 import {SignInReq} from 'api/Auth/authType';
+import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 const useSignIn = (req: SignInReq) => {
-  let errorMessage = '';
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
   const signin = async () => {
@@ -12,11 +13,11 @@ const useSignIn = (req: SignInReq) => {
       navigate('/');
     } catch (error: any) {
       console.dir(error);
-      errorMessage = error.response.data as string;
+      setMessage(error.response.data as string);
     }
   };
 
-  return {message: errorMessage, signin};
+  return {message, signin, setMessage};
 };
 
 export default useSignIn;

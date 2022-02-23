@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import CommonButton from 'common/Button';
 import styled from 'styled-components';
 import useSignIn from 'hooks/SignIn/useSignIn';
@@ -11,16 +11,18 @@ function Form() {
 
   const {email, password} = form;
 
-  const {signin, message} = useSignIn(form);
+  const {signin, message, setMessage} = useSignIn(form);
+
+  useEffect(() => {
+    if (message) {
+      alert(message);
+      setMessage('');
+    }
+  }, [message, setMessage]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signin();
-    console.log(message);
-
-    if (message) {
-      alert(message);
-    }
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
