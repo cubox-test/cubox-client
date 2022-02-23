@@ -1,5 +1,5 @@
 import apiClient from 'api/apiClient';
-import {SignUpReq} from './authType';
+import {CertificationRes, SignInReq, SignUpReq} from './authType';
 
 const baseUrl = '/api/auth';
 
@@ -14,11 +14,19 @@ class AuthService {
 
   public static async certification(imp_uid: string) {
     try {
-      const {data} = await apiClient.post<{unique_key: string}>(
+      const {data} = await apiClient.post<CertificationRes>(
         `${baseUrl}/certifications`,
         {imp_uid},
       );
       return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static async signin(req: SignInReq) {
+    try {
+      await apiClient.post(`${baseUrl}/login`, req);
     } catch (error) {
       throw error;
     }
