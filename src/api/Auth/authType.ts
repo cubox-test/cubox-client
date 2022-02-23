@@ -1,6 +1,6 @@
 export type SignUpReq = {
   email: string;
-  name: string;
   password: string;
+  nickName: string;
   unique_key: string;
 };
