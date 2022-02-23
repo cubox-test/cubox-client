@@ -4,12 +4,12 @@ import useIsCertification from 'hooks/SignUp/useIsCertification';
 import Form from './components/Form';
 
 function SignUp() {
-  const {unique_key} = useIsCertification();
+  const {unique_key, name} = useIsCertification();
 
   return (
     <Layout>
       <Layout.Main>
-        <Form unique_key={unique_key} />
+        <Form unique_key={unique_key} name={name} />
       </Layout.Main>
       <Layout.Footer>
         <Footer />

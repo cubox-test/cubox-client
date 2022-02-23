@@ -5,9 +5,10 @@ import styled from 'styled-components';
 
 interface FormProps {
   unique_key: string;
+  name: string;
 }
 
-function Form({unique_key}: FormProps) {
+function Form({unique_key, name}: FormProps) {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -27,13 +28,19 @@ function Form({unique_key}: FormProps) {
       setForm(prev => ({...prev, confirmPasswrod: value}));
     }
   };
-  const {signup, message} = useSignUp({email, nickName, password, unique_key});
+  const {signup, message} = useSignUp({
+    email,
+    nickName,
+    password,
+    unique_key,
+    name,
+  });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signup();
-    if (message !== '') {
-      console.log(message);
+    if (message) {
+      alert(message);
     }
   };
 
