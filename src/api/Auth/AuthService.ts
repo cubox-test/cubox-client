@@ -40,6 +40,14 @@ class AuthService {
       throw error;
     }
   }
+
+  public static async logout() {
+    try {
+      await apiClient.get(`${baseUrl}/logout`);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default AuthService;

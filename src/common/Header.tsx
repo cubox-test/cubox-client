@@ -1,3 +1,4 @@
+import AuthService from 'api/Auth/AuthService';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import CommonButton from './Button';
@@ -7,11 +8,15 @@ interface HeaderProps {
 }
 
 function Header({isAuth}: HeaderProps) {
+  const onClick = () => {
+    AuthService.logout();
+  };
+
   return (
     <Wrapper>
       <Heading1>LOGO</Heading1>
       {isAuth ? (
-        <Button>로그아웃</Button>
+        <Button onClick={onClick}>로그아웃</Button>
       ) : (
         <nav>
           <NavItems>
