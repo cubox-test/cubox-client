@@ -35,7 +35,7 @@ function Form() {
   return (
     <Wrapper>
       <FormStyled onSubmit={onSubmit}>
-        <Heading1>회원정보 입력</Heading1>
+        <Heading1>로그인</Heading1>
         <Label>
           <span>이메일</span>
           <Input type="email" name="email" value={email} onChange={onChange} />
