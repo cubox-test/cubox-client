@@ -9,8 +9,8 @@ const useCertification = () => {
     IMP.certification({}, (rsp: any) => {
       if (rsp.success) {
         AuthService.certification(rsp.imp_uid)
-          .then(({unique_key}) => {
-            navigate('/signup', {state: {unique_key}});
+          .then(({unique_key, name}) => {
+            navigate('/signup', {state: {unique_key, name}});
           })
           .catch(error => {
             if (error.response.status === 400) {
