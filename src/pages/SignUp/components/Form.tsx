@@ -28,7 +28,7 @@ function Form({unique_key, name}: FormProps) {
       setForm(prev => ({...prev, confirmPasswrod: value}));
     }
   };
-  const {signup, message} = useSignUp({
+  const {signup} = useSignUp({
     email,
     nickName,
     password,
@@ -39,9 +39,6 @@ function Form({unique_key, name}: FormProps) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signup();
-    if (message) {
-      alert(message);
-    }
   };
 
   return (

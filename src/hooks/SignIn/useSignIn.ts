@@ -1,6 +1,6 @@
 import AuthService from 'api/Auth/AuthService';
 import {SignInReq} from 'api/Auth/authType';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 const useSignIn = (req: SignInReq) => {
@@ -17,7 +17,14 @@ const useSignIn = (req: SignInReq) => {
     }
   };
 
-  return {message, signin, setMessage};
+  useEffect(() => {
+    if (message) {
+      alert(message);
+      setMessage('');
+    }
+  }, [message]);
+
+  return {signin};
 };
 
 export default useSignIn;

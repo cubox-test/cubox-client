@@ -1,9 +1,10 @@
 import AuthService from 'api/Auth/AuthService';
 import {SignUpReq} from 'api/Auth/authType';
+import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 const useSignUp = (req: SignUpReq) => {
-  let errorMessage = '';
+  const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
   const signup = async () => {
@@ -11,11 +12,18 @@ const useSignUp = (req: SignUpReq) => {
       await AuthService.signup(req);
       navigate('/signin');
     } catch (error: any) {
-      errorMessage = error.response.data;
+      setMessage(error.response.data as string);
     }
   };
 
-  return {message: errorMessage as string, signup};
+  useEffect(() => {
+    if (message) {
+      alert(message);
+      setMessage('');
+    }
+  }, [message, setMessage]);
+
+  return {signup};
 };
 
 export default useSignUp;
