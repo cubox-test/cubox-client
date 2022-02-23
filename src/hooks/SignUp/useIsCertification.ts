@@ -1,3 +1,4 @@
+import {CertificationRes} from 'api/Auth/authType';
 import {useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 
@@ -11,7 +12,7 @@ const useIsCertification = () => {
     }
   }, [location.state, navigate]);
 
-  return location.state as {unique_key: string};
+  return location.state as CertificationRes;
 };
 
 export default useIsCertification;

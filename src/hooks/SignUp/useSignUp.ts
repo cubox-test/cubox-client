@@ -11,7 +11,7 @@ const useSignUp = (req: SignUpReq) => {
       await AuthService.signup(req);
       navigate('/signin');
     } catch (error: any) {
-      errorMessage = error.response.data.message;
+      errorMessage = error.response.data;
     }
   };
 
