@@ -31,6 +31,15 @@ class AuthService {
       throw error;
     }
   }
+
+  public static async me() {
+    try {
+      const {data} = await apiClient.get(`${baseUrl}/me`);
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default AuthService;

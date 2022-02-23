@@ -1,20 +1,29 @@
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import CommonButton from './Button';
 
-function Header() {
+interface HeaderProps {
+  isAuth: boolean;
+}
+
+function Header({isAuth}: HeaderProps) {
   return (
     <Wrapper>
       <Heading1>LOGO</Heading1>
-      <nav>
-        <NavItems>
-          <Item>
-            <Link to="/certification">회원가입</Link>
-          </Item>
-          <Item>
-            <Link to="/signin">로그인</Link>
-          </Item>
-        </NavItems>
-      </nav>
+      {isAuth ? (
+        <Button>로그아웃</Button>
+      ) : (
+        <nav>
+          <NavItems>
+            <Item>
+              <Link to="/certification">회원가입</Link>
+            </Item>
+            <Item>
+              <Link to="/signin">로그인</Link>
+            </Item>
+          </NavItems>
+        </nav>
+      )}
     </Wrapper>
   );
 }
@@ -22,6 +31,10 @@ const Wrapper = styled.header`
   display: flex;
   height: 100%;
   justify-content: space-between;
+`;
+
+const Button = styled(CommonButton)`
+  margin: auto 0;
 `;
 
 const Heading1 = styled.h1`
