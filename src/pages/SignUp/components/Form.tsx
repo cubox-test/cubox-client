@@ -1,7 +1,9 @@
 import CommonButton from 'common/Button';
 import useSignUp from 'hooks/SignUp/useSignUp';
-import React, {useEffect, useState} from 'react';
+import platform from 'platform';
+import React, {useEffect, useRef, useState} from 'react';
 import styled, {css} from 'styled-components';
+import {convertOs, convertRole} from '../utils/formConvertServerForm';
 import {
   isPasswordConfirmed,
   isVerifiedEmail,
@@ -13,9 +15,11 @@ import TermConditions from './TermConditions';
 interface FormProps {
   unique_key: string;
   name: string;
+  age: number;
+  foreigner: boolean;
 }
 
-function Form({unique_key, name}: FormProps) {
+function Form({unique_key, name, age, foreigner}: FormProps) {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -25,6 +29,7 @@ function Form({unique_key, name}: FormProps) {
   const [disable, setDisable] = useState(true);
   const [isAgree, setIsAgree] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const userAgent = useRef(platform.os?.family);
 
   const [selected, setSelected] = useState({
     emailNotSelected: true,
@@ -86,6 +91,11 @@ function Form({unique_key, name}: FormProps) {
     password,
     unique_key,
     name,
+    age,
+    foreigner,
+    roleId: convertRole(isAdmin),
+    signed: isAgree,
+    useragent: convertOs(userAgent.current),
   });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

@@ -10,12 +10,17 @@ function SignUp() {
   if (location.state == null) {
     return null;
   }
-  const {unique_key, name} = location.state as CertificationRes;
+  const {unique_key, name, age, foreigner} = location.state as CertificationRes;
 
   return (
     <Layout>
       <Layout.Main>
-        <Form unique_key={unique_key} name={name} />
+        <Form
+          unique_key={unique_key}
+          name={name}
+          age={age}
+          foreigner={foreigner}
+        />
       </Layout.Main>
     </Layout>
   );
