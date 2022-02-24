@@ -15,3 +15,11 @@ export type SignInReq = {
   email: string;
   password: string;
 };
+
+export type CertificateAdminReq = {
+  email: string;
+};
+
+export type CertificateAdminRes = {
+  certificationNumber: number;
+};
