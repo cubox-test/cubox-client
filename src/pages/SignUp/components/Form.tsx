@@ -7,6 +7,8 @@ import {
   isVerifiedEmail,
   isVerifiedPassword,
 } from '../utils/validator';
+import AdminAuthentication from './AdminAuthentication/AdminAuthentication';
+import TermConditions from './TermConditions';
 
 interface FormProps {
   unique_key: string;
@@ -20,8 +22,9 @@ function Form({unique_key, name}: FormProps) {
     nickName: '',
     confirmPasswrod: '',
   });
-
   const [disable, setDisable] = useState(true);
+  const [isAgree, setIsAgree] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const [selected, setSelected] = useState({
     emailNotSelected: true,
@@ -38,8 +41,14 @@ function Form({unique_key, name}: FormProps) {
 
   useEffect(() => {
     const {isConfirm, isEmail, isPassword} = validation;
-    setDisable(!isConfirm || !isEmail || !isPassword || !(nickName.length > 0));
-  }, [validation, nickName.length]);
+    setDisable(
+      !isConfirm ||
+        !isEmail ||
+        !isPassword ||
+        !(nickName.length > 0) ||
+        !isAgree,
+    );
+  }, [validation, nickName.length, isAgree]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name: tagName, value} = e.target;
@@ -155,6 +164,8 @@ function Form({unique_key, name}: FormProps) {
             </ValidateRes>
           </InputBox>
         </Label>
+        <AdminAuthentication isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        <TermConditions isAgree={isAgree} setIsAgree={setIsAgree} />
         <Button type="submit" disabled={disable}>
           회원가입
         </Button>
