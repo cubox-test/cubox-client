@@ -1,6 +1,8 @@
+import color from 'color';
 import useLogOut from 'hooks/Common/useLogOut';
-import {Link} from 'react-router-dom';
-import styled from 'styled-components';
+import useMove from 'hooks/Common/useMove';
+import {Link as RouterLink} from 'react-router-dom';
+import styled, {css} from 'styled-components';
 import CommonButton from './Button';
 
 interface HeaderProps {
@@ -10,23 +12,27 @@ interface HeaderProps {
 function Header({isAuth}: HeaderProps) {
   const {logout} = useLogOut();
 
+  const moveHome = useMove('/');
+
   const onClick = () => {
     logout();
   };
 
   return (
     <Wrapper>
-      <Heading1>LOGO</Heading1>
+      <Heading1 onClick={moveHome}>CUBOX Manager</Heading1>
       {isAuth ? (
         <Button onClick={onClick}>로그아웃</Button>
       ) : (
         <nav>
           <NavItems>
             <Item>
-              <Link to="/certification">회원가입</Link>
+              <Link to="/certification">SignUp</Link>
             </Item>
             <Item>
-              <Link to="/signin">로그인</Link>
+              <Link to="/signin" backgroundColor={color.buttonColor}>
+                SignIn
+              </Link>
             </Item>
           </NavItems>
         </nav>
@@ -45,6 +51,10 @@ const Button = styled(CommonButton)`
 `;
 
 const Heading1 = styled.h1`
+  color: ${color.primary};
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 600;
   display: flex;
   align-items: center;
 `;
@@ -58,6 +68,27 @@ const NavItems = styled.ul`
   height: 100%;
   ${Item} + ${Item} {
     margin-left: 0.625rem;
+  }
+`;
+
+const Link = styled(RouterLink)<{backgroundColor?: string}>`
+  text-decoration: none;
+  color: ${({backgroundColor}) =>
+    backgroundColor ? '#ffffff' : color.textColor};
+
+  border: 0.0625rem solid
+    ${({backgroundColor}) => (backgroundColor ? 'none' : color.textColor)};
+  border-radius: 0.25rem;
+  padding: 0.3125rem;
+  ${props =>
+    props.backgroundColor
+      ? css`
+          background-color: ${props.backgroundColor};
+        `
+      : null}
+  transition: all 0.2s;
+  &:hover {
+    filter: brightness(0.85);
   }
 `;
 

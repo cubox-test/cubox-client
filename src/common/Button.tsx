@@ -1,13 +1,16 @@
+import color from 'color';
 import styled from 'styled-components';
 
 const Button = styled.button`
   border: none;
   cursor: pointer;
-  height: 3.125rem;
+  padding: 0.3125rem;
   border-radius: 0.3125rem;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: ${color.buttonColor};
+  color: #fff;
+  transition: all 0.2s;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.3);
+    filter: brightness(0.85);
   }
 `;
 

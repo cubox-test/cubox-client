@@ -1,4 +1,5 @@
 import {CertificationRes} from 'api/Auth/authType';
+import HeaderWithoutButton from 'common/HeaderWithoutButton';
 import Layout from 'common/Layout';
 import useIsCertification from 'hooks/SignUp/useIsCertification';
 import {useLocation} from 'react-router-dom';
@@ -14,6 +15,9 @@ function SignUpPage() {
 
   return (
     <Layout>
+      <Layout.Header>
+        <HeaderWithoutButton />
+      </Layout.Header>
       <Layout.Main>
         <Form
           unique_key={unique_key}

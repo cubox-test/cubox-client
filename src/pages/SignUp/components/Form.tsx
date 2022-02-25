@@ -238,11 +238,11 @@ const Button = styled(CommonButton)`
     ${props =>
       props.disabled
         ? css`
-            background-color: rgba(0, 0, 0, 0.2);
+            filter: brightness(1);
             cursor: auto;
           `
         : css`
-            background-color: rgba(0, 0, 0, 0.3);
+            filter: brightness(0.85);
             cursor: pointer;
           `}
   }
