@@ -1,9 +1,9 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Main from 'pages/Main/Main';
-import SignIn from 'pages/SignIn/SignIn';
-import Certification from 'pages/SignUp/Certification';
-import SignUp from 'pages/SignUp/SignUp';
+import Main from 'pages/Main/MainPage';
+import SignIn from 'pages/SignIn/SignInPage';
+import Certification from 'pages/SignUp/CertificationPage';
+import SignUp from 'pages/SignUp/SignUpPage';
 
 function App() {
   return (
