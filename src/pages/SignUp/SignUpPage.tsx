@@ -4,7 +4,7 @@ import useIsCertification from 'hooks/SignUp/useIsCertification';
 import {useLocation} from 'react-router-dom';
 import Form from './components/Form';
 
-function SignUp() {
+function SignUpPage() {
   useIsCertification();
   const location = useLocation();
   if (location.state == null) {
@@ -26,4 +26,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default SignUpPage;

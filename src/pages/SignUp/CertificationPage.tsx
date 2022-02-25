@@ -2,7 +2,7 @@ import Footer from 'common/Footer';
 import Layout from 'common/Layout';
 import CertificationMain from './components/CertificationMain';
 
-function Certification() {
+function CertificationPage() {
   return (
     <Layout>
       <Layout.Main>
@@ -15,4 +15,4 @@ function Certification() {
   );
 }
 
-export default Certification;
+export default CertificationPage;

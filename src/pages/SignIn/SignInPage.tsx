@@ -2,7 +2,7 @@ import Footer from 'common/Footer';
 import Layout from 'common/Layout';
 import Form from './components/Form';
 
-function SignIn() {
+function SignInPage() {
   return (
     <Layout>
       <Layout.Main>
@@ -15,4 +15,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default SignInPage;
