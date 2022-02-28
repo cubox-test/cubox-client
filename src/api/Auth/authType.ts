@@ -23,6 +23,15 @@ export type SignInReq = {
   password: string;
 };
 
+export type SignInRes = {
+  userId: string;
+};
+
+export type MeRes = {
+  userId: string;
+  roleId: number;
+};
+
 export type CertificateAdminReq = {
   email: string;
 };

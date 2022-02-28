@@ -3,7 +3,9 @@ import {
   CertificateAdminReq,
   CertificateAdminRes,
   CertificationRes,
+  MeRes,
   SignInReq,
+  SignInRes,
   SignUpReq,
 } from './authType';
 
@@ -32,7 +34,8 @@ class AuthService {
 
   public static async signin(req: SignInReq) {
     try {
-      await apiClient.post(`${baseUrl}/login`, req);
+      const {data} = await apiClient.post<SignInRes>(`${baseUrl}/login`, req);
+      return data;
     } catch (error) {
       throw error;
     }
@@ -40,7 +43,7 @@ class AuthService {
 
   public static async me() {
     try {
-      const {data} = await apiClient.get(`${baseUrl}/me`);
+      const {data} = await apiClient.get<MeRes>(`${baseUrl}/me`);
       return data;
     } catch (error) {
       throw error;
