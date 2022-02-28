@@ -3,6 +3,7 @@ import Header from 'common/Header';
 import Layout from 'common/Layout';
 import {useAppSelector} from 'hooks/Common/sotreHooks';
 import useIsAuth from 'hooks/Common/useIsAuth';
+import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Main from './components/Main';
 
@@ -10,10 +11,11 @@ function MainPage() {
   const navigate = useNavigate();
   const isAuth = useIsAuth();
   const {userId} = useAppSelector(state => state.auth);
-  if (!isAuth) {
-    navigate('/signin');
-    return null;
-  }
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/signin');
+    }
+  }, [isAuth, navigate]);
 
   return (
     <Layout>

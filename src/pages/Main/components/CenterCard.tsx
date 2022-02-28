@@ -2,10 +2,12 @@ import color from 'color';
 import React from 'react';
 import styled from 'styled-components';
 import {GoPerson} from 'react-icons/go';
+import getPercent from '../utils/getPercent';
+import {useNavigate} from 'react-router-dom';
 
 interface CenterCardProps {
   center: {
-    centerId?: string;
+    centerId: string;
     centerName: string;
     numberOfWorker: number;
     totalJobs: number;
@@ -15,12 +17,18 @@ interface CenterCardProps {
 }
 
 function CenterCard({
-  center: {assignedJobs, centerName, numberOfWorker, totalJobs, waitingJobs},
+  center: {assignedJobs, centerName, numberOfWorker, totalJobs, centerId},
 }: CenterCardProps) {
-  const percent = assignedJobs / totalJobs;
+  const navigate = useNavigate();
+  const percent = getPercent({total: totalJobs, assigned: assignedJobs});
+  const isAllAssigned = assignedJobs === totalJobs;
+
+  const onClick = () => {
+    navigate(`center/${centerId}`);
+  };
 
   return (
-    <CardWrapper>
+    <CardWrapper onClick={onClick}>
       <TitleWrapper>
         <Title>{centerName}</Title>
       </TitleWrapper>
@@ -31,9 +39,12 @@ function CenterCard({
         </Label>
         <Label>
           assigned
-          <AssignedJobNum> {assignedJobs}</AssignedJobNum>
+          <AssignedJobNum isAllAssigned={isAllAssigned}>
+            {' '}
+            {assignedJobs}
+          </AssignedJobNum>
         </Label>
-        <Percent>{percent}%</Percent>
+        <Percent isAllAssigned={isAllAssigned}>{percent}%</Percent>
       </JobWrapper>
       <div>chart</div>
       <WorkerNumWrapper>
@@ -78,14 +89,14 @@ const TotalJobNum = styled.span`
   font-weight: 700;
 `;
 
-const AssignedJobNum = styled.span`
+const AssignedJobNum = styled.span<{isAllAssigned: boolean}>`
   font-weight: 700;
-  color: red;
+  color: ${props => (props.isAllAssigned ? 'blue' : 'red')};
 `;
 
-const Percent = styled.span`
+const Percent = styled.span<{isAllAssigned: boolean}>`
   margin-left: 0.625rem;
-  color: red;
+  color: ${props => (props.isAllAssigned ? 'blue' : 'red')};
 `;
 
 const WorkerNumWrapper = styled.div`
