@@ -2,6 +2,8 @@ import apiClient from 'api/apiClient';
 import {
   GetCenterInfoByUserIdReq,
   GetCenterInfoByUserIdRes,
+  GetJobsInfoByCenterIdReq,
+  GetJobsInfoByCenterIdRes,
   GetWorkersInfoByCenterIdRes,
 } from './centerType';
 
@@ -26,6 +28,20 @@ class CenterService {
         `${baseUrl}/workers`,
         {
           params: {centerId},
+        },
+      );
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public static async getJobsInfoByCenterId(req: GetJobsInfoByCenterIdReq) {
+    try {
+      const {data} = await apiClient.get<GetJobsInfoByCenterIdRes>(
+        `${baseUrl}/jobs`,
+        {
+          params: {centerId: req.centerId},
         },
       );
       return data;
