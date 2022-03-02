@@ -59,7 +59,7 @@ class SupervisorService {
       const {data} = await apiClient.get<GetJobInfoByProjectIdRes[]>(
         `${baseUrl}/job`,
         {
-          params: {projectId: req.projectId},
+          params: {projectId: req.projectId, centerId: req.centerId},
         },
       );
       return data;

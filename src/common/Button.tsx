@@ -1,12 +1,19 @@
 import color from 'color';
 import styled from 'styled-components';
 
-const Button = styled.button`
+interface ButtonProps {
+  isActive?: boolean;
+}
+
+const Button = styled.button<ButtonProps>`
   border: none;
   cursor: pointer;
   padding: 0.3125rem;
   border-radius: 0.3125rem;
-  background-color: ${color.buttonColor};
+  background-color: ${props =>
+    props.isActive === undefined || props.isActive
+      ? color.buttonColor
+      : 'gray'};
   color: #fff;
   transition: all 0.2s;
   &:hover {

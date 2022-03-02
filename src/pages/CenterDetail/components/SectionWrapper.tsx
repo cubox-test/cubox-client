@@ -1,48 +1,10 @@
 import SupervisorService from 'api/Supervisor/SupervisorService';
-import {
-  GetJobInfoByProjectIdRes,
-  GetProjectInfoByCenterIdRes,
-} from 'api/Supervisor/supervisorType';
+import {GetJobInfoByProjectIdRes} from 'api/Supervisor/supervisorType';
 import useFetch from 'hooks/Common/useFetch';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import AssignedSection from './AssignedSection';
+import JobSection from './JobSection/JobSection';
 import ProjectSection from './ProjectSection/ProjectSection';
-import TotalSection from './TotalSection';
-import WaitingSection from './WaitingSection';
-
-const mockProject: GetProjectInfoByCenterIdRes[] = [
-  {
-    projectId: '1',
-    projectName: '프로젝트 1',
-    total: 100,
-    submitted: 20,
-  },
-  {
-    projectId: '2',
-    projectName: '프로젝트 2',
-    total: 100,
-    submitted: 20,
-  },
-  {
-    projectId: '3',
-    projectName: '프로젝트 3',
-    total: 100,
-    submitted: 20,
-  },
-  {
-    projectId: '4',
-    projectName: '프로젝트 4',
-    total: 100,
-    submitted: 20,
-  },
-  {
-    projectId: '5',
-    projectName: '프로젝트 5',
-    total: 100,
-    submitted: 20,
-  },
-];
 
 interface SectionWrapperProps {
   centerId: string;
@@ -53,30 +15,63 @@ function SectionWrapper({centerId}: SectionWrapperProps) {
     jobs: [],
     assignedJobs: [],
     waitingJobs: [],
+    compelteJobs: [],
   };
   const [classfiedJob, setClassfiedJob] = useState(initalState);
-  const {data: project} = useFetch(
+  const {data: projects, setState: setProjects} = useFetch(
     {centerId: centerId!},
     SupervisorService.getProjectInfoByCenterId,
   );
+  const [select, setSelect] = useState<SelectState>('total');
+  const [jobToPass, setJobToPass] = useState([] as GetJobInfoByProjectIdRes[]);
 
   const onClilck = async (projectId: string) => {
-    const jobs = await SupervisorService.getJobInfoByProjectId({projectId});
-    const {assignedJobs, waitingJobs} = classifyJobs(jobs);
+    const jobs = await SupervisorService.getJobInfoByProjectId({
+      projectId,
+      centerId,
+    });
+
+    setProjects(prev => {
+      prev.data =
+        prev.data &&
+        prev.data.map(data => {
+          if (data.projectId === projectId) {
+            data.isSelected = true;
+          } else {
+            data.isSelected = false;
+          }
+          return data;
+        });
+      return prev;
+    });
+
+    const {assignedJobs, waitingJobs, compelteJobs} = classifyJobs(jobs);
     setClassfiedJob({
       jobs,
       assignedJobs,
       waitingJobs,
+      compelteJobs,
     });
   };
+
+  const selectClick = (selectClicked: SelectState) => {
+    setSelect(selectClicked);
+  };
+
+  useEffect(() => {
+    setJobToPass(setPassToJob(select, classfiedJob));
+  }, [select, classfiedJob]);
+
   return (
     <>
-      {project && (
+      {projects && (
         <Wrapper>
-          <ProjectSection onClick={onClilck} projects={mockProject} />
-          <TotalSection jobs={classfiedJob.jobs} />
-          <AssignedSection jobs={classfiedJob.assignedJobs} />
-          <WaitingSection jobs={classfiedJob.waitingJobs} />
+          <ProjectSection onClick={onClilck} projects={projects} />
+          <JobSection
+            jobs={jobToPass}
+            selectClick={selectClick}
+            select={select}
+          />
         </Wrapper>
       )}
     </>
@@ -92,29 +87,53 @@ type State = {
   jobs: GetJobInfoByProjectIdRes[];
   assignedJobs: GetJobInfoByProjectIdRes[];
   waitingJobs: GetJobInfoByProjectIdRes[];
+  compelteJobs: GetJobInfoByProjectIdRes[];
 };
+
+export type SelectState = 'total' | 'assigned' | 'waiting' | 'compeleted';
 
 function classifyJobs(jobs: GetJobInfoByProjectIdRes[] | null) {
   const assignedJobs: GetJobInfoByProjectIdRes[] = [];
   const waitingJobs: GetJobInfoByProjectIdRes[] = [];
+  const compelteJobs: GetJobInfoByProjectIdRes[] = [];
   if (jobs == null) {
-    return {assignedJobs, waitingJobs};
+    return {assignedJobs, waitingJobs, compelteJobs};
   }
 
   jobs.forEach(job => {
     const {stateId} = job;
     if (isWaiting(stateId)) {
       waitingJobs.push(job);
+    } else if (isComplete(stateId)) {
+      compelteJobs.push(job);
     } else {
       assignedJobs.push(job);
     }
   });
 
-  return {assignedJobs, waitingJobs};
+  return {assignedJobs, waitingJobs, compelteJobs};
 }
 
 function isWaiting(assingState: number) {
   return assingState === 1;
+}
+
+function isComplete(stateId: number) {
+  return stateId === 3;
+}
+
+function setPassToJob(select: SelectState, classfiedJob: State) {
+  const {assignedJobs, compelteJobs, waitingJobs, jobs} = classfiedJob;
+  switch (select) {
+    case 'assigned':
+      return assignedJobs;
+    case 'compeleted':
+      return compelteJobs;
+    case 'waiting':
+      return waitingJobs;
+    default:
+      return jobs;
+  }
 }
 
 export default SectionWrapper;

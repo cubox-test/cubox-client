@@ -42,7 +42,7 @@ function useFetch<Res, P>(param: P, fetchFunc: (p: P) => Promise<Res>) {
     fetch();
   }, []);
 
-  return {...state, fetch};
+  return {...state, fetch, setState};
 }
 
 export default useFetch;

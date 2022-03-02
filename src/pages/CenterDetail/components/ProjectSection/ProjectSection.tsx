@@ -13,6 +13,7 @@ function ProjectSection({projects, onClick}: ProjectSectionProps) {
       <ul>
         {projects.map(project => (
           <Project
+            isSelected={project.isSelected}
             onClick={onClick}
             key={project.projectId}
             project={project}

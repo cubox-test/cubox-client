@@ -28,10 +28,12 @@ export type GetProjectInfoByCenterIdRes = {
   projectName: string;
   total: number;
   submitted: number;
+  isSelected?: boolean;
 };
 
 export type GetJobInfoByProjectIdReq = {
   projectId: string;
+  centerId: string;
 };
 
 export type GetJobInfoByProjectIdRes = {
