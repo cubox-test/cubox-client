@@ -23,7 +23,9 @@ Layout.Header = styled.div`
   height: 6.25rem;
 `;
 
-Layout.Main = styled.main``;
+Layout.Main = styled.main`
+  height: 100%;
+`;
 
 Layout.AuthMain = styled.main`
   position: fixed;

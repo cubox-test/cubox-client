@@ -23,8 +23,8 @@ export type GetProjectInfoByCenterIdReq = {
 };
 
 export type GetProjectInfoByCenterIdRes = {
-  jobId: string;
-  jobName: string;
-  assignState: number;
-  assignWorkerId: string;
-}[];
+  projectId: string;
+  projectName: string;
+  total: number;
+  submitted: number;
+};

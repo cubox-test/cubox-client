@@ -1,4 +1,4 @@
-import CenterService from 'api/Center/CenterService';
+import CenterService from 'api/Center/SupervisorService';
 import useFetch from 'hooks/Common/useFetch';
 import CenterCard from './CenterCard';
 

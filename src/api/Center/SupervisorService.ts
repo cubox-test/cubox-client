@@ -5,9 +5,9 @@ import {
   GetProjectInfoByCenterIdReq,
   GetProjectInfoByCenterIdRes,
   GetWorkersInfoByCenterIdRes,
-} from './centerType';
+} from './supervisorType';
 
-const baseUrl = '/api/center';
+const baseUrl = '/api/supervisor';
 
 class CenterService {
   public static async getCenterInfoByUserId(req: GetCenterInfoByUserIdReq) {
@@ -40,7 +40,7 @@ class CenterService {
     req: GetProjectInfoByCenterIdReq,
   ) {
     try {
-      const {data} = await apiClient.get<GetProjectInfoByCenterIdRes>(
+      const {data} = await apiClient.get<GetProjectInfoByCenterIdRes[]>(
         `${baseUrl}/project`,
         {
           params: {centerId: req.centerId},

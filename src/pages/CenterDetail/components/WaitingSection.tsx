@@ -1,7 +1,7 @@
-import {GetProjectInfoByCenterIdRes} from 'api/Center/centerType';
+import {GetProjectInfoByCenterIdRes} from 'api/Center/supervisorType';
 
 interface WaitingSectionProps {
-  jobs: GetProjectInfoByCenterIdRes;
+  jobs: GetProjectInfoByCenterIdRes[];
 }
 
 function WaitingSection({jobs}: WaitingSectionProps) {
