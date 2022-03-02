@@ -1,4 +1,4 @@
-import {GetJobInfoByProjectIdRes} from 'api/Center/supervisorType';
+import {GetJobInfoByProjectIdRes} from 'api/Supervisor/supervisorType';
 
 interface WaitingSectionProps {
   jobs: GetJobInfoByProjectIdRes[];

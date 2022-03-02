@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import {GoPerson} from 'react-icons/go';
 import getPercent from '../utils/getPercent';
 import {useNavigate} from 'react-router-dom';
-import {GetCenterInfoByUserIdRes} from 'api/Center/supervisorType';
+import {GetCenterInfoByUserIdRes} from 'api/Supervisor/supervisorType';
 
 interface CenterCardProps {
   center: GetCenterInfoByUserIdRes;

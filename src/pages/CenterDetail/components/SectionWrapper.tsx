@@ -1,8 +1,8 @@
-import SupervisorService from 'api/Center/SupervisorService';
+import SupervisorService from 'api/Supervisor/SupervisorService';
 import {
   GetJobInfoByProjectIdRes,
   GetProjectInfoByCenterIdRes,
-} from 'api/Center/supervisorType';
+} from 'api/Supervisor/supervisorType';
 import useFetch from 'hooks/Common/useFetch';
 import {useState} from 'react';
 import styled from 'styled-components';

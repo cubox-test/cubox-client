@@ -1,4 +1,4 @@
-import {GetProjectInfoByCenterIdRes} from 'api/Center/supervisorType';
+import {GetProjectInfoByCenterIdRes} from 'api/Supervisor/supervisorType';
 import styled from 'styled-components';
 import Project from './Project';
 
