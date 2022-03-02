@@ -6,7 +6,7 @@ const useLogOut = () => {
   const dispatch = useAppDispatch();
   const logout = () => {
     AuthService.logout().then(() => {
-      dispatch(authenticate({isAuth: false, roleId: null}));
+      dispatch(authenticate({isAuth: false, roleId: null, userId: null}));
     });
   };
 
