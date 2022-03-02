@@ -2,8 +2,8 @@ import apiClient from 'api/apiClient';
 import {
   GetCenterInfoByUserIdReq,
   GetCenterInfoByUserIdRes,
-  GetJobsInfoByCenterIdReq,
-  GetJobsInfoByCenterIdRes,
+  GetProjectInfoByCenterIdReq,
+  GetProjectInfoByCenterIdRes,
   GetWorkersInfoByCenterIdRes,
 } from './centerType';
 
@@ -36,10 +36,12 @@ class CenterService {
     }
   }
 
-  public static async getJobsInfoByCenterId(req: GetJobsInfoByCenterIdReq) {
+  public static async getProjectInfoByCenterId(
+    req: GetProjectInfoByCenterIdReq,
+  ) {
     try {
-      const {data} = await apiClient.get<GetJobsInfoByCenterIdRes>(
-        `${baseUrl}/jobs`,
+      const {data} = await apiClient.get<GetProjectInfoByCenterIdRes>(
+        `${baseUrl}/project`,
         {
           params: {centerId: req.centerId},
         },

@@ -18,11 +18,11 @@ export type GetWorkersInfoByCenterIdRes = {
   achievement: number;
 }[];
 
-export type GetJobsInfoByCenterIdReq = {
+export type GetProjectInfoByCenterIdReq = {
   centerId: string;
 };
 
-export type GetJobsInfoByCenterIdRes = {
+export type GetProjectInfoByCenterIdRes = {
   jobId: string;
   jobName: string;
   assignState: number;
