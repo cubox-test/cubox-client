@@ -7,15 +7,11 @@ interface MainProps {
 }
 
 function Main({userId}: MainProps) {
-  const {
-    data: centers,
-    loading,
-    error,
-  } = useFetch({userId}, CenterService.getCenterInfoByUserId);
+  const {data: centers} = useFetch(
+    {userId},
+    CenterService.getCenterInfoByUserId,
+  );
 
-  console.log('data : ', centers);
-  console.log('loading : ', loading);
-  console.log('error : ', error);
   return (
     <>
       {centers &&

@@ -18,10 +18,15 @@ const authSlice = createSlice({
   reducers: {
     authenticate(
       state,
-      action: PayloadAction<{isAuth: boolean; roleId: number | null}>,
+      action: PayloadAction<{
+        isAuth: boolean;
+        roleId: number | null;
+        userId: string | null;
+      }>,
     ) {
       state.isAuth = action.payload.isAuth;
       state.roleId = action.payload.roleId;
+      state.userId = action.payload.userId;
     },
     setUserId(state, action: PayloadAction<{userId: string | null}>) {
       state.userId = action.payload.userId;
