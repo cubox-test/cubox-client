@@ -4,24 +4,27 @@ import styled from 'styled-components';
 import {GoPerson} from 'react-icons/go';
 import getPercent from '../utils/getPercent';
 import {useNavigate} from 'react-router-dom';
+import {GetCenterInfoByUserIdRes} from 'api/Center/supervisorType';
 
 interface CenterCardProps {
-  center: {
-    centerId: string;
-    centerName: string;
-    numberOfWorker: number;
-    totalJobs: number;
-    assignedJobs: number;
-    waitingJobs: number;
-  };
+  center: GetCenterInfoByUserIdRes;
 }
 
 function CenterCard({
-  center: {assignedJobs, centerName, numberOfWorker, totalJobs, centerId},
+  center: {
+    assignedProjects,
+    centerName,
+    numberOfWorker,
+    totalProjects,
+    centerId,
+  },
 }: CenterCardProps) {
   const navigate = useNavigate();
-  const percent = getPercent({total: totalJobs, assigned: assignedJobs});
-  const isAllAssigned = assignedJobs === totalJobs;
+  const percent = getPercent({
+    total: totalProjects,
+    assigned: assignedProjects,
+  });
+  const isAllAssigned = assignedProjects === totalProjects;
 
   const onClick = () => {
     navigate(`center/${centerId}`);
@@ -35,13 +38,13 @@ function CenterCard({
       <JobWrapper>
         <Label>
           total
-          <TotalJobNum> {totalJobs}</TotalJobNum>
+          <TotalJobNum> {totalProjects}</TotalJobNum>
         </Label>
         <Label>
           assigned
           <AssignedJobNum isAllAssigned={isAllAssigned}>
             {' '}
-            {assignedJobs}
+            {assignedProjects}
           </AssignedJobNum>
         </Label>
         <Percent isAllAssigned={isAllAssigned}>{percent}%</Percent>

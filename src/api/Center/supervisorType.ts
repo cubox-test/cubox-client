@@ -6,10 +6,11 @@ export type GetCenterInfoByUserIdRes = {
   centerId: string;
   centerName: string;
   numberOfWorker: number;
-  totalJobs: number;
-  assignedJobs: number;
-  waitingJobs: number;
-}[];
+  totalProjects: number;
+  assignedProjects: number;
+  waitingProjects: number;
+  submittedProjects: number;
+};
 
 export type GetWorkersInfoByCenterIdRes = {
   workerId: string;
@@ -27,4 +28,17 @@ export type GetProjectInfoByCenterIdRes = {
   projectName: string;
   total: number;
   submitted: number;
+};
+
+export type GetJobInfoByProjectIdReq = {
+  projectId: string;
+};
+
+export type GetJobInfoByProjectIdRes = {
+  jobId: string;
+  jobName: string;
+  total: number;
+  submitted: number;
+  workerId: string;
+  stateId: number;
 };

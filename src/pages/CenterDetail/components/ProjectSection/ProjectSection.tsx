@@ -1,18 +1,22 @@
 import {GetProjectInfoByCenterIdRes} from 'api/Center/supervisorType';
-import color from 'color';
 import styled from 'styled-components';
 import Project from './Project';
 
 interface ProjectSectionProps {
   projects: GetProjectInfoByCenterIdRes[];
+  onClick(projectId: string): void;
 }
 
-function ProjectSection({projects}: ProjectSectionProps) {
+function ProjectSection({projects, onClick}: ProjectSectionProps) {
   return (
     <Section>
       <ul>
         {projects.map(project => (
-          <Project key={project.projectId} project={project} />
+          <Project
+            onClick={onClick}
+            key={project.projectId}
+            project={project}
+          />
         ))}
       </ul>
     </Section>
@@ -21,7 +25,6 @@ function ProjectSection({projects}: ProjectSectionProps) {
 
 const Section = styled.section`
   width: 20%;
-  background-color: ${color.second};
   border-radius: 0.25rem;
   padding: 0.625rem;
   box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);

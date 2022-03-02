@@ -1,7 +1,7 @@
-import {GetProjectInfoByCenterIdRes} from 'api/Center/supervisorType';
+import {GetJobInfoByProjectIdRes} from 'api/Center/supervisorType';
 
 interface AssignedSectionProps {
-  jobs: GetProjectInfoByCenterIdRes[];
+  jobs: GetJobInfoByProjectIdRes[];
 }
 
 function AssignedSection({jobs}: AssignedSectionProps) {

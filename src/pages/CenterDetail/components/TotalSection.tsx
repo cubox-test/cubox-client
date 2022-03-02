@@ -1,7 +1,7 @@
-import {GetProjectInfoByCenterIdRes} from 'api/Center/supervisorType';
+import {GetJobInfoByProjectIdRes} from 'api/Center/supervisorType';
 
 interface TotalSectionProps {
-  jobs: GetProjectInfoByCenterIdRes[];
+  jobs: GetJobInfoByProjectIdRes[];
 }
 
 function TotalSection({jobs}: TotalSectionProps) {

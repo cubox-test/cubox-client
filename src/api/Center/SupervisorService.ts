@@ -2,6 +2,8 @@ import apiClient from 'api/apiClient';
 import {
   GetCenterInfoByUserIdReq,
   GetCenterInfoByUserIdRes,
+  GetJobInfoByProjectIdReq,
+  GetJobInfoByProjectIdRes,
   GetProjectInfoByCenterIdReq,
   GetProjectInfoByCenterIdRes,
   GetWorkersInfoByCenterIdRes,
@@ -9,10 +11,10 @@ import {
 
 const baseUrl = '/api/supervisor';
 
-class CenterService {
+class SupervisorService {
   public static async getCenterInfoByUserId(req: GetCenterInfoByUserIdReq) {
     try {
-      const {data} = await apiClient.get<GetCenterInfoByUserIdRes>(
+      const {data} = await apiClient.get<GetCenterInfoByUserIdRes[]>(
         `${baseUrl}`,
         {params: req},
       );
@@ -51,6 +53,20 @@ class CenterService {
       throw error;
     }
   }
+
+  public static async getJobInfoByProjectId(req: GetJobInfoByProjectIdReq) {
+    try {
+      const {data} = await apiClient.get<GetJobInfoByProjectIdRes[]>(
+        `${baseUrl}/job`,
+        {
+          params: {projectId: req.projectId},
+        },
+      );
+      return data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
-export default CenterService;
+export default SupervisorService;

@@ -1,19 +1,22 @@
 import {GetProjectInfoByCenterIdRes} from 'api/Center/supervisorType';
-import color from 'color';
 import styled from 'styled-components';
 
 interface ProjectProps {
   project: GetProjectInfoByCenterIdRes;
+  onClick(projectId: string): void;
 }
 
-function Project({project}: ProjectProps) {
-  const {projectName} = project;
+function Project({project, onClick}: ProjectProps) {
+  const {projectName, projectId} = project;
 
-  return <Item>{projectName}</Item>;
+  const getProjectJob = () => {
+    onClick(projectId);
+  };
+
+  return <Item onClick={getProjectJob}>{projectName}</Item>;
 }
 
 const Item = styled.li`
-  background-color: ${color.second};
   width: 100%;
   text-align: center;
   padding: 8px 0;

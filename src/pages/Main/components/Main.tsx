@@ -1,4 +1,4 @@
-import CenterService from 'api/Center/SupervisorService';
+import SupervisorService from 'api/Center/SupervisorService';
 import useFetch from 'hooks/Common/useFetch';
 import CenterCard from './CenterCard';
 
@@ -9,7 +9,7 @@ interface MainProps {
 function Main({userId}: MainProps) {
   const {data: centers} = useFetch(
     {userId},
-    CenterService.getCenterInfoByUserId,
+    SupervisorService.getCenterInfoByUserId,
   );
 
   return (
