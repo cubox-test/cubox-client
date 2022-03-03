@@ -6,11 +6,15 @@ interface MainProps {
 }
 
 function Main({userId}: MainProps) {
-  const {data: centers} = useCenter({userId});
-  // const {data: centers} = useFetch(
-  //   {userId},
-  //   SupervisorService.getCenterInfoByUserId,
-  // );
+  const {data: centers, error, loading} = useCenter({userId});
+
+  if (error) {
+    alert((error as any).response.data);
+  }
+
+  if (loading && !centers) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <>

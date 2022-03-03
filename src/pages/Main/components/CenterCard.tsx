@@ -17,6 +17,8 @@ function CenterCard({
     numberOfWorker,
     totalProjects,
     centerId,
+    submittedProjects,
+    waitingProjects,
   },
 }: CenterCardProps) {
   const navigate = useNavigate();
@@ -24,7 +26,12 @@ function CenterCard({
     total: totalProjects,
     assigned: assignedProjects,
   });
+  const compeletePercent = getPercent({
+    total: totalProjects,
+    assigned: submittedProjects,
+  });
   const isAllAssigned = assignedProjects === totalProjects;
+  const isAllCompeleted = totalProjects === submittedProjects;
 
   const onClick = () => {
     navigate(`center/${centerId}`);
@@ -47,7 +54,14 @@ function CenterCard({
             {assignedProjects}
           </AssignedJobNum>
         </Label>
-        <Percent isAllAssigned={isAllAssigned}>{percent}%</Percent>
+        <Label>
+          배정률
+          <Percent isAllAssigned={isAllAssigned}>{percent}%</Percent>
+        </Label>
+        <Label>
+          완료률
+          <Percent isAllAssigned={isAllCompeleted}>{compeletePercent}%</Percent>
+        </Label>
       </JobWrapper>
       <div>chart</div>
       <WorkerNumWrapper>
