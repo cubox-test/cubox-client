@@ -19,10 +19,6 @@ export type GetWorkersInfoByCenterIdRes = {
   achievement: number;
 }[];
 
-export type GetProjectInfoByCenterIdReq = {
-  centerId: string;
-};
-
 export type GetProjectInfoByCenterIdRes = {
   projectId: string;
   projectName: string;

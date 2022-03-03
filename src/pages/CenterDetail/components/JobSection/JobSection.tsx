@@ -37,7 +37,7 @@ function JobSection({jobs, select: s, selectClick}: JobsSectionProps) {
       </ButtonWrapper>
       <ul>
         {jobs.map(job => (
-          <Job job={job} />
+          <Job key={job.jobId} job={job} />
         ))}
       </ul>
     </Section>

@@ -20,6 +20,12 @@ const useIsAuth = () => {
       });
   }, [dispatch, navigate]);
 
+  useEffect(() => {
+    if (!isAuth) {
+      navigate('/signin');
+    }
+  }, [isAuth, navigate]);
+
   return isAuth;
 };
 

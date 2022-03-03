@@ -4,7 +4,6 @@ import {
   GetCenterInfoByUserIdRes,
   GetJobInfoByProjectIdReq,
   GetJobInfoByProjectIdRes,
-  GetProjectInfoByCenterIdReq,
   GetProjectInfoByCenterIdRes,
   GetWorkersInfoByCenterIdRes,
 } from './supervisorType';
@@ -38,17 +37,18 @@ class SupervisorService {
     }
   }
 
-  public static async getProjectInfoByCenterId(
-    req: GetProjectInfoByCenterIdReq,
-  ) {
+  public static async getProjectInfoByCenterId(centerId: string) {
     try {
       const {data} = await apiClient.get<GetProjectInfoByCenterIdRes[]>(
         `${baseUrl}/project`,
         {
-          params: {centerId: req.centerId},
+          params: {centerId},
         },
       );
-      return data;
+      return data.map(item => {
+        item.isSelected = false;
+        return item;
+      });
     } catch (error) {
       throw error;
     }
