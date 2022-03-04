@@ -1,3 +1,4 @@
+import {SerializedError} from '@reduxjs/toolkit';
 import {GetJobInfoByProjectIdRes} from 'api/Supervisor/supervisorType';
 import Button from 'common/Button';
 import React, {useState} from 'react';
@@ -9,15 +10,31 @@ interface JobsSectionProps {
   jobs: GetJobInfoByProjectIdRes[];
   selectClick(select: SelectState): void;
   select: SelectState;
+  error: SerializedError | null;
+  loading: boolean;
 }
 
-function JobSection({jobs, select: s, selectClick}: JobsSectionProps) {
+function JobSection({
+  jobs,
+  select: s,
+  selectClick,
+  error,
+  loading,
+}: JobsSectionProps) {
   const [select, setSelecte] = useState(s);
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const name = (e.target as HTMLButtonElement).name as SelectState;
     setSelecte(name);
     selectClick(name);
   };
+
+  if (error) {
+    alert((error as any).response.data);
+  }
+
+  if (loading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <Section>
@@ -35,18 +52,28 @@ function JobSection({jobs, select: s, selectClick}: JobsSectionProps) {
           waiting
         </Button>
       </ButtonWrapper>
-      <ul>
+      <JobList>
         {jobs.map(job => (
           <Job key={job.jobId} job={job} />
         ))}
-      </ul>
+      </JobList>
     </Section>
   );
 }
 
-const Section = styled.section``;
+const Section = styled.section`
+  width: 70%;
+`;
 
-const ButtonWrapper = styled.div``;
+const JobList = styled.ul`
+  margin-top: 1.25rem;
+`;
+
+const ButtonWrapper = styled.div`
+  ${Button} + ${Button} {
+    margin-left: 0.5rem;
+  }
+`;
 
 function isTotalSelected(select: SelectState) {
   return select === 'total';

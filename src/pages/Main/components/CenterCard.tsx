@@ -55,11 +55,15 @@ function CenterCard({
           </AssignedJobNum>
         </Label>
         <Label>
+          waiting
+          <span> {waitingProjects}</span>
+        </Label>
+        <Label>
           배정률
           <Percent isAllAssigned={isAllAssigned}>{percent}%</Percent>
         </Label>
         <Label>
-          완료률
+          완료율
           <Percent isAllAssigned={isAllCompeleted}>{compeletePercent}%</Percent>
         </Label>
       </JobWrapper>

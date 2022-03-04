@@ -5,6 +5,7 @@ import SignInPage from 'pages/SignIn/SignInPage';
 import CertificationPage from 'pages/SignUp/CertificationPage';
 import SignUpPage from 'pages/SignUp/SignUpPage';
 import CenterDetailPage from 'pages/CenterDetail/CenterDetailPage';
+import Modal from 'react-modal';
 
 function App() {
   return (
@@ -19,5 +20,7 @@ function App() {
     </BrowserRouter>
   );
 }
+
+Modal.setAppElement('#root');
 
 export default App;

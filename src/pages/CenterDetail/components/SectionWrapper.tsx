@@ -16,9 +16,12 @@ function SectionWrapper({centerId}: SectionWrapperProps) {
   const [select, setSelect] = useState<SelectState>('total');
   const [jobToPass, setJobToPass] = useState([] as GetJobInfoByProjectIdRes[]);
   const {projects, selectByProjectId} = useProjectsSelects(centerId);
-  const {data: jobs, onClick} = useClickApi(
-    SupervisorService.getJobInfoByProjectId,
-  );
+  const {
+    data: jobs,
+    onClick,
+    error,
+    loading,
+  } = useClickApi(SupervisorService.getJobInfoByProjectId);
   const jobClassifier = useMemo(() => new JobClassifier(jobs), [jobs]);
 
   const selectProject = (projectId: string) => {
@@ -44,6 +47,8 @@ function SectionWrapper({centerId}: SectionWrapperProps) {
         <Wrapper>
           <ProjectSection onClick={selectProject} projects={projects} />
           <JobSection
+            error={error}
+            loading={loading}
             jobs={jobToPass}
             selectClick={selectStateClick}
             select={select}
