@@ -1,30 +1,56 @@
 import Button from 'common/Button';
 import styled from 'styled-components';
 import Modal from 'react-modal';
+import {GetWorkersInfoByCenterIdRes} from 'api/Supervisor/supervisorType';
+import {SerializedError} from '@reduxjs/toolkit';
 
 interface WorkerModalProps {
   isModalOpen: boolean;
   onRequestClose(): void;
+  workerState: {
+    data: GetWorkersInfoByCenterIdRes[] | null;
+    loading: boolean;
+    error: SerializedError | null;
+  };
 }
 
-function WorkerModal({isModalOpen, onRequestClose}: WorkerModalProps) {
+function WorkerModal({
+  isModalOpen,
+  onRequestClose,
+  workerState,
+}: WorkerModalProps) {
+  const {data, error, loading} = workerState;
+  if (loading) {
+    return <div>로딩중</div>;
+  }
+
+  if (error) {
+    alert((error as any).response.data);
+  }
+
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={onRequestClose}
-      style={{overlay: overlayStyle, content: contentStyle}}>
-      <ModalWrapper>
-        <ButtonWrapper>
-          <WokrerButton>worker1 x</WokrerButton>
-        </ButtonWrapper>
-        <WorkerList>
-          <WorkerItem>worker 1</WorkerItem>
-          <WorkerItem>worker 2</WorkerItem>
-          <WorkerItem>worker 3</WorkerItem>
-        </WorkerList>
-        <Button style={ButtonStyle}>할당하기</Button>
-      </ModalWrapper>
-    </Modal>
+    <>
+      {data && (
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={onRequestClose}
+          style={{overlay: overlayStyle, content: contentStyle}}>
+          <ModalWrapper>
+            <ButtonWrapper>
+              <WokrerButton>worker1 x</WokrerButton>
+            </ButtonWrapper>
+            <WorkerList>
+              {data.map(worker => (
+                <WorkerItem key={worker.workerId}>
+                  {worker.User.workerNickName}
+                </WorkerItem>
+              ))}
+            </WorkerList>
+            <Button style={ButtonStyle}>할당하기</Button>
+          </ModalWrapper>
+        </Modal>
+      )}
+    </>
   );
 }
 

@@ -14,10 +14,10 @@ export type GetCenterInfoByUserIdRes = {
 
 export type GetWorkersInfoByCenterIdRes = {
   workerId: string;
-  jobName: string;
-  jobId: string;
-  achievement: number;
-}[];
+  User: {
+    workerNickName: string;
+  };
+};
 
 export type GetProjectInfoByCenterIdRes = {
   projectId: string;

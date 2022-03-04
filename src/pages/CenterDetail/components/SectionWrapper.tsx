@@ -47,6 +47,7 @@ function SectionWrapper({centerId}: SectionWrapperProps) {
         <Wrapper>
           <ProjectSection onClick={selectProject} projects={projects} />
           <JobSection
+            centerId={centerId}
             error={error}
             loading={loading}
             jobs={jobToPass}

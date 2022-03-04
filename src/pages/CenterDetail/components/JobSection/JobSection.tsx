@@ -12,6 +12,7 @@ interface JobsSectionProps {
   select: SelectState;
   error: SerializedError | null;
   loading: boolean;
+  centerId: string;
 }
 
 function JobSection({
@@ -20,6 +21,7 @@ function JobSection({
   selectClick,
   error,
   loading,
+  centerId,
 }: JobsSectionProps) {
   const [select, setSelecte] = useState(s);
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -54,7 +56,7 @@ function JobSection({
       </ButtonWrapper>
       <JobList>
         {jobs.map(job => (
-          <Job key={job.jobId} job={job} />
+          <Job centerId={centerId} key={job.jobId} job={job} />
         ))}
       </JobList>
     </Section>

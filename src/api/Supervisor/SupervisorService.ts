@@ -25,7 +25,7 @@ class SupervisorService {
 
   public static async getWorkersInfoByCenterId(centerId: string) {
     try {
-      const {data} = await apiClient.get<GetWorkersInfoByCenterIdRes>(
+      const {data} = await apiClient.get<GetWorkersInfoByCenterIdRes[]>(
         `${baseUrl}/workers`,
         {
           params: {centerId},
