@@ -22,7 +22,7 @@ const useIsAuth = () => {
 
   useEffect(() => {
     if (!isAuth) {
-      navigate('/signin');
+      navigate('/auth');
     }
   }, [isAuth, navigate]);
 

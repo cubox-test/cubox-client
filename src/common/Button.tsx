@@ -21,4 +21,11 @@ const Button = styled.button<ButtonProps>`
   }
 `;
 
+const DisabledButton = styled.button`
+  border: none;
+  padding: 0.3125rem;
+  background-color: gray;
+`;
+
+export {DisabledButton};
 export default Button;

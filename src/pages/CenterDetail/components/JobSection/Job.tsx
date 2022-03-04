@@ -2,19 +2,19 @@ import {GetJobInfoByProjectIdRes} from 'api/Supervisor/supervisorType';
 import styled from 'styled-components';
 import {GoPerson} from 'react-icons/go';
 import {useMemo, useState} from 'react';
-import WorkerModal from './WorkerModal';
+import WorkerModal from './WorkerModal/WorkerModal';
 import useClickApi from 'hooks/Common/useClickApi';
 import SupervisorService from 'api/Supervisor/SupervisorService';
 
 interface JobProps {
   job: GetJobInfoByProjectIdRes;
   centerId: string;
+  projectId: string;
 }
 
-function Job({job, centerId}: JobProps) {
-  const {jobName, submitted, workerId, total, stateId, jobId} = job;
+function Job({job, centerId, projectId}: JobProps) {
+  const {jobName, stateId, jobId} = job;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [isModalOpenMorethenOne, setIsModalOpenMorethenOne] = useState(false);
   const {data, loading, error, onClick} = useClickApi(
     SupervisorService.getWorkersInfoByCenterId,
   );
@@ -26,12 +26,6 @@ function Job({job, centerId}: JobProps) {
     }),
     [data, loading, error],
   );
-
-  console.log('///////////');
-  console.log('submit', submitted);
-  console.log('workerId', workerId);
-  console.log('total', total);
-  console.log(jobId);
 
   const onRequestClose = () => {
     setIsModalOpen(false);
@@ -52,6 +46,9 @@ function Job({job, centerId}: JobProps) {
             <GoPerson />
           </WorkerButton>
           <WorkerModal
+            centerId={centerId}
+            jobId={jobId}
+            projectId={projectId}
             workerState={workersState}
             isModalOpen={isModalOpen}
             onRequestClose={onRequestClose}></WorkerModal>

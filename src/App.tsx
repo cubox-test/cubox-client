@@ -6,6 +6,7 @@ import CertificationPage from 'pages/SignUp/CertificationPage';
 import SignUpPage from 'pages/SignUp/SignUpPage';
 import CenterDetailPage from 'pages/CenterDetail/CenterDetailPage';
 import Modal from 'react-modal';
+import Auth from 'pages/Auth';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/center/:centerId" element={<CenterDetailPage />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </BrowserRouter>
   );

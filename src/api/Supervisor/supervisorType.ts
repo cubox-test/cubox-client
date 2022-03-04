@@ -40,3 +40,10 @@ export type GetJobInfoByProjectIdRes = {
   workerId: string;
   stateId: number;
 };
+
+export type AssignJobReq = {
+  centerId: string;
+  projectId: string;
+  jobId: string;
+  workerId: string;
+};

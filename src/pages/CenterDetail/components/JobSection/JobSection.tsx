@@ -13,6 +13,7 @@ interface JobsSectionProps {
   error: SerializedError | null;
   loading: boolean;
   centerId: string;
+  projectId?: string;
 }
 
 function JobSection({
@@ -22,6 +23,7 @@ function JobSection({
   error,
   loading,
   centerId,
+  projectId,
 }: JobsSectionProps) {
   const [select, setSelecte] = useState(s);
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -55,9 +57,15 @@ function JobSection({
         </Button>
       </ButtonWrapper>
       <JobList>
-        {jobs.map(job => (
-          <Job centerId={centerId} key={job.jobId} job={job} />
-        ))}
+        {jobs.length !== 0 &&
+          jobs.map(job => (
+            <Job
+              projectId={projectId!}
+              centerId={centerId}
+              key={job.jobId}
+              job={job}
+            />
+          ))}
       </JobList>
     </Section>
   );

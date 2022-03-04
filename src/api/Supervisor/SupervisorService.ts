@@ -1,5 +1,6 @@
 import apiClient from 'api/apiClient';
 import {
+  AssignJobReq,
   GetCenterInfoByUserIdReq,
   GetCenterInfoByUserIdRes,
   GetJobInfoByProjectIdReq,
@@ -66,6 +67,22 @@ class SupervisorService {
     } catch (error) {
       throw error;
     }
+  }
+
+  public static async assignJob(req: AssignJobReq) {
+    const {centerId, jobId, projectId, workerId} = req;
+    try {
+      await apiClient.post(
+        `${baseUrl}/assignment`,
+        {
+          jobId,
+          workerId,
+        },
+        {
+          params: {centerId: centerId, projectId: projectId},
+        },
+      );
+    } catch (error) {}
   }
 }
 

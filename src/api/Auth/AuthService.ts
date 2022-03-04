@@ -64,8 +64,6 @@ class AuthService {
         `${baseUrl}/mail`,
         req,
       );
-      console.log(data);
-
       return data;
     } catch (error) {
       throw error;
