@@ -1,5 +1,7 @@
+import color from 'color';
 import useCenter from 'hooks/Main/useCenter';
-import CenterCard from './CenterCard';
+import styled from 'styled-components';
+import CenterCard from './CenterCard/CenterCard';
 
 interface MainProps {
   userId: string;
@@ -17,13 +19,16 @@ function Main({userId}: MainProps) {
   }
 
   return (
-    <>
-      {centers &&
-        centers.map(center => (
-          <CenterCard key={center.centerId} center={center} />
-        ))}
-    </>
+    <Wrapper>
+      {centers && centers.map((center, i) => <CenterCard key={i} />)}
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  background-color: ${color.background};
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 export default Main;

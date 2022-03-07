@@ -44,6 +44,7 @@ const Wrapper = styled.header`
   display: flex;
   height: 100%;
   justify-content: space-between;
+  background-color: #f3f3f3;
 `;
 
 const Button = styled(CommonButton)`
@@ -57,6 +58,7 @@ const Heading1 = styled.h1`
   font-weight: 600;
   display: flex;
   align-items: center;
+  background-color: #f3f3f3;
 `;
 const Item = styled.li`
   height: 6.25rem;
