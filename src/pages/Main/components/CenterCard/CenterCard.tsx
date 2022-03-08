@@ -1,23 +1,41 @@
+import {Center, Project as ProjectType} from 'api/Supervisor/supervisorType';
+import color from 'color';
 import styled from 'styled-components';
 import CenterInfo from './CenterInfo';
 import Project from './Project';
 
-function CenterCard() {
+interface CenterCardProps {
+  center: Center;
+  projects: ProjectType[];
+}
+
+function CenterCard({center, projects}: CenterCardProps) {
+  const {
+    centerName,
+    createdProjects,
+    finishedProjects,
+    processingProjects,
+    centerStatus,
+  } = center;
   return (
     <CardWrapper>
-      <Title>Center1 </Title>
-      <Status />
+      <Title>{centerName}</Title>
+      <Status status={centerStatus} />
       {/* create, proccessing, finished */}
       <CenterInfoWrapper>
-        <CenterInfo isDividerExist label="create" />
-        <CenterInfo isDividerExist label="proccessing" />
-        <CenterInfo label="finished" />
+        <CenterInfo count={createdProjects} isDividerExist label="create" />
+        <CenterInfo
+          count={processingProjects}
+          isDividerExist
+          label="processing"
+        />
+        <CenterInfo count={finishedProjects} label="finished" />
       </CenterInfoWrapper>
       {/* ProjectWrapper */}
       <ProjectWrapper>
-        <Project projectName="project 1" />
-        <Project projectName="project 2" />
-        <Project projectName="project 3" />
+        {projects.map(project => (
+          <Project project={project} key={project.projectId} />
+        ))}
       </ProjectWrapper>
       <Button>EXPAND</Button>
     </CardWrapper>
@@ -52,14 +70,23 @@ const Title = styled.div`
   color: #555555;
 `;
 
-const Status = styled.div`
+const Status = styled.div<{status: number}>`
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
   position: absolute;
   right: 1.4375rem;
   top: 1rem;
-  background-color: #5ef977;
+  background-color: ${props => {
+    switch (props.status) {
+      case 1:
+        return color.status.warning;
+      case 2:
+        return color.status.alarm;
+      default:
+        return color.status.idle;
+    }
+  }};
 `;
 
 const CenterInfoWrapper = styled.div`
@@ -69,7 +96,7 @@ const CenterInfoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ProjectWrapper = styled.div`
+const ProjectWrapper = styled.ul`
   margin-bottom: 1rem;
 `;
 

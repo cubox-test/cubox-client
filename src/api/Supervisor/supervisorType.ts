@@ -2,14 +2,27 @@ export type GetCenterInfoByUserIdReq = {
   userId: string;
 };
 
-export type GetCenterInfoByUserIdRes = {
+export type Center = {
   centerId: string;
   centerName: string;
-  numberOfWorker: number;
-  totalProjects: number;
-  assignedProjects: number;
-  waitingProjects: number;
-  submittedProjects: number;
+  createdProjects: number;
+  processingProjects: number;
+  finishedProjects: number;
+  centerStatus: number;
+};
+
+export type Project = {
+  projectId: string;
+  projectName: string;
+  totalJobs: number;
+  createdJobs: number;
+  processingJobs: number;
+  finishedJobs: number;
+};
+
+export type GetCenterInfoByUserIdRes = {
+  center: Center;
+  project: Project[];
 };
 
 export type GetWorkersInfoByCenterIdRes = {

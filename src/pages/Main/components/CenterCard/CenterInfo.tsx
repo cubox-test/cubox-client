@@ -3,14 +3,15 @@ import styled from 'styled-components';
 interface CenterInfoProps {
   label: string;
   isDividerExist?: boolean;
+  count: number;
 }
 
-function CenterInfo({label, isDividerExist}: CenterInfoProps) {
+function CenterInfo({label, isDividerExist, count}: CenterInfoProps) {
   return (
     <Wrapper>
       <LabelSmall>
         {label}
-        <Count>10</Count>
+        <Count>{count}</Count>
       </LabelSmall>
       {isDividerExist && <Divider />}
     </Wrapper>

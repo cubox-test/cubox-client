@@ -1,19 +1,34 @@
-import React from 'react';
+import {Project as ProjectType} from 'api/Supervisor/supervisorType';
+import color from 'color';
+import React, {useMemo} from 'react';
 import styled from 'styled-components';
 
 interface ProjectProps {
-  projectName: string;
+  project: ProjectType;
 }
 
-function Project({projectName}: ProjectProps) {
+function Project({project}: ProjectProps) {
+  const {projectName, finishedJobs, processingJobs, totalJobs, projectId} =
+    project;
+
+  const jobGraph = useMemo(
+    () => getSettingJob({finishedJobs, processingJobs, totalJobs}),
+    [finishedJobs, processingJobs, totalJobs],
+  );
+
   return (
     <Wrapper>
       <LabelNormal>
         <span>{projectName}</span>
         <GraphWrapper>
-          <Graph percent={100} zindex={100} />
-          <Graph percent={80} backgroundColor="#F3D892" zindex={200} />
-          <Graph percent={20} backgroundColor="#5EF977" zindex={300} />
+          {jobGraph.map(graph => (
+            <Graph
+              percent={graph.value}
+              backgroundColor={graph.background}
+              zindex={graph.zIndex}
+              key={projectId + graph.name}
+            />
+          ))}
         </GraphWrapper>
       </LabelNormal>
     </Wrapper>
@@ -51,5 +66,54 @@ const Graph = styled.div<{
   top: 0;
   bottom: 0;
 `;
+
+type JobObj = {
+  finishedJobs: number;
+  processingJobs: number;
+  totalJobs: number;
+};
+
+function getSettingJob({finishedJobs, totalJobs, processingJobs}: JobObj) {
+  const zIndex = 300;
+  const mappedJob = [
+    {
+      name: 'finished',
+      value: (finishedJobs / totalJobs) * 100,
+      zIndex: 0,
+      background: '',
+    },
+    {
+      name: 'total',
+      value: 100,
+      zIndex: 0,
+      background: '',
+    },
+    {
+      name: 'processing',
+      value: (processingJobs / totalJobs) * 100,
+      zIndex: 0,
+      background: '',
+    },
+  ];
+  mappedJob.sort((jobLeft, jobRight) => jobLeft.value - jobRight.value);
+  return mappedJob.map((job, i) => {
+    job.zIndex = zIndex - 100 * i;
+    job.background = getBackgroundColor(job.name as JobStatus);
+    return job;
+  });
+}
+
+type JobStatus = 'total' | 'proceesing' | 'finished';
+
+function getBackgroundColor(jobStatus: JobStatus) {
+  switch (jobStatus) {
+    case 'proceesing':
+      return color.status.warning;
+    case 'finished':
+      return color.status.idle;
+    default:
+      return color.background;
+  }
+}
 
 export default Project;

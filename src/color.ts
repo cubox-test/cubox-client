@@ -4,6 +4,11 @@ const color = {
   textColor: '#9F9F9F',
   buttonColor: '#016BD5',
   second: '#EFFFFD',
+  status: {
+    warning: '#F3D892',
+    alarm: '#F95E5E',
+    idle: '#5EF977',
+  },
 };
 
 export default color;
