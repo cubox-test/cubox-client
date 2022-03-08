@@ -33,7 +33,17 @@ const CardWrapper = styled.div`
   box-shadow: 0 0 0.9375rem 0.0625rem rgba(0, 0, 0, 0.1);
   position: relative;
   padding: 0.55rem 1.4375rem 0;
-  margin: 20px;
+  box-sizing: border-box;
+  margin: 0.625rem;
+  @media screen and (min-width: 1024px) {
+    width: 20.0625rem;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    width: 22.71875rem;
+  }
+  @media screen and (max-width: 767px) {
+    width: 500px;
+  }
 `;
 
 const Title = styled.div`

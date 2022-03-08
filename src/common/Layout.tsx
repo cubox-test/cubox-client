@@ -1,4 +1,3 @@
-import color from 'color';
 import styled from 'styled-components';
 
 interface LayoutProps {
@@ -13,8 +12,16 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding: 0 10%;
-  background-color: ${color.background};
+  margin: 0 auto;
+  @media screen and (min-width: 1024px) {
+    width: 1023px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    width: 767px;
+  }
+  @media screen and (max-width: 767px) {
+    width: 500px;
+  }
 `;
 
 Layout.Header = styled.header`
@@ -22,13 +29,10 @@ Layout.Header = styled.header`
   background-color: inherit;
 `;
 
-Layout.Main = styled.main`
-  background-color: ${color.background};
-`;
+Layout.Main = styled.main``;
 
 Layout.Footer = styled.footer`
   margin-top: auto;
-  background-color: ${color.background};
 `;
 
 export default Layout;

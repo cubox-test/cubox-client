@@ -42,6 +42,7 @@ const Divider = styled.div`
   position: absolute;
   right: 0;
   bottom: -0.625rem;
+  border-left: 0.0625rem solid;
 `;
 
 export default CenterInfo;
