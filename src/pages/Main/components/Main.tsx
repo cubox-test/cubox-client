@@ -3,6 +3,7 @@ import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import CenterCard from './CenterCard/CenterCard';
 import SupervisorService from 'api/Supervisor/SupervisorService';
+import Loading from 'common/Loading';
 
 interface MainProps {
   userId: string;
@@ -22,7 +23,7 @@ function Main({userId}: MainProps) {
   }
 
   if (isLoading && !centers) {
-    return <div>로딩중</div>;
+    return <Loading />;
   }
 
   return (
