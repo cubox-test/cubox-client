@@ -36,39 +36,33 @@ function CenterCard({center, projects: p}: CenterCardProps) {
   };
 
   return (
-    <Outer>
-      <CardWrapper>
-        <Title>{centerName}</Title>
-        <Status status={centerStatus} />
-        {/* create, proccessing, finished */}
-        <CenterInfoWrapper>
-          <CenterInfo count={createdProjects} isDividerExist label="create" />
-          <CenterInfo
-            count={processingProjects}
-            isDividerExist
-            label="processing"
-          />
-          <CenterInfo count={finishedProjects} label="finished" />
-        </CenterInfoWrapper>
-        {/* ProjectWrapper */}
-        <ProjectWrapper
-          isHaveProject={isNotEmptyArr(projects)}
-          isExpanded={isExpanded}>
-          {projects.map(project => (
-            <Project project={project} key={project.projectId} />
-          ))}
-        </ProjectWrapper>
-        <Button onClick={onExpandBtnClick}>
-          {isExpanded && isNotEmptyArr(projects) ? 'COLLAPSE' : 'EXPAND'}
-        </Button>
-      </CardWrapper>
-    </Outer>
+    <CardWrapper>
+      <Title>{centerName}</Title>
+      <Status status={centerStatus} />
+      {/* create, proccessing, finished */}
+      <CenterInfoWrapper>
+        <CenterInfo count={createdProjects} isDividerExist label="create" />
+        <CenterInfo
+          count={processingProjects}
+          isDividerExist
+          label="processing"
+        />
+        <CenterInfo count={finishedProjects} label="finished" />
+      </CenterInfoWrapper>
+      {/* ProjectWrapper */}
+      <ProjectWrapper
+        isHaveProject={isNotEmptyArr(projects)}
+        isExpanded={isExpanded}>
+        {projects.map(project => (
+          <Project project={project} key={project.projectId} />
+        ))}
+      </ProjectWrapper>
+      <Button onClick={onExpandBtnClick}>
+        {isExpanded && isNotEmptyArr(projects) ? 'COLLAPSE' : 'EXPAND'}
+      </Button>
+    </CardWrapper>
   );
 }
-
-const Outer = styled.div`
-  height: 25rem;
-`;
 
 const CardWrapper = styled.div`
   width: 21.875rem;

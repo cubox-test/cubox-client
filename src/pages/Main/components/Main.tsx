@@ -44,6 +44,7 @@ const Wrapper = styled.div`
   background-color: ${color.background};
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
 `;
 
 export default Main;
