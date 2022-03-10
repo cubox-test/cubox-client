@@ -81,6 +81,7 @@ const CardWrapper = styled.div`
   padding: 0.55rem 1.4375rem 0;
   box-sizing: border-box;
   margin: 0.625rem;
+  border-radius: 0.25rem;
   @media screen and (min-width: 1024px) {
     width: 20.0625rem;
   }
