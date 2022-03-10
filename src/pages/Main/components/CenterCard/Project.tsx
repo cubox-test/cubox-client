@@ -1,7 +1,7 @@
 import {Project as ProjectType} from 'api/Supervisor/supervisorType';
 import color from 'color';
 import React, {useMemo} from 'react';
-import styled from 'styled-components';
+import styled, {keyframes} from 'styled-components';
 
 interface ProjectProps {
   project: ProjectType;
@@ -59,6 +59,15 @@ const GraphWrapper = styled.div`
   position: relative;
 `;
 
+const GraphAnimation = (percent: number) => keyframes`
+  from {
+    width: 0%;
+  }
+  to {
+    width: ${percent}%;
+  }
+`;
+
 const Graph = styled.div<{
   zindex: number;
   backgroundColor?: string;
@@ -68,7 +77,8 @@ const Graph = styled.div<{
   background-color: ${props => props.backgroundColor || '#eeeeee'} !important;
   position: absolute;
   left: 0;
-  width: ${props => `${props.percent}%`};
+  animation: ${props => GraphAnimation(props.percent)} 0.2s linear;
+  animation-fill-mode: forwards;
   top: 0;
   bottom: 0;
 `;
