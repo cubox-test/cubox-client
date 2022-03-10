@@ -1,6 +1,8 @@
 import {Center, Project as ProjectType} from 'api/Supervisor/supervisorType';
 import color from 'color';
+import {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import {isNotEmptyArr} from 'utils/typeCheck';
 import CenterInfo from './CenterInfo';
 import Project from './Project';
 
@@ -9,7 +11,7 @@ interface CenterCardProps {
   projects: ProjectType[];
 }
 
-function CenterCard({center, projects}: CenterCardProps) {
+function CenterCard({center, projects: p}: CenterCardProps) {
   const {
     centerName,
     createdProjects,
@@ -17,30 +19,56 @@ function CenterCard({center, projects}: CenterCardProps) {
     processingProjects,
     centerStatus,
   } = center;
+
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [projects, setProjects] = useState(p);
+
+  useEffect(() => {
+    if (isExpanded) {
+      setProjects(p);
+    } else {
+      setProjects([]);
+    }
+  }, [isExpanded, p]);
+
+  const onExpandBtnClick = () => {
+    setIsExpanded(prev => !prev);
+  };
+
   return (
-    <CardWrapper>
-      <Title>{centerName}</Title>
-      <Status status={centerStatus} />
-      {/* create, proccessing, finished */}
-      <CenterInfoWrapper>
-        <CenterInfo count={createdProjects} isDividerExist label="create" />
-        <CenterInfo
-          count={processingProjects}
-          isDividerExist
-          label="processing"
-        />
-        <CenterInfo count={finishedProjects} label="finished" />
-      </CenterInfoWrapper>
-      {/* ProjectWrapper */}
-      <ProjectWrapper>
-        {projects.map(project => (
-          <Project project={project} key={project.projectId} />
-        ))}
-      </ProjectWrapper>
-      <Button>EXPAND</Button>
-    </CardWrapper>
+    <Outer>
+      <CardWrapper>
+        <Title>{centerName}</Title>
+        <Status status={centerStatus} />
+        {/* create, proccessing, finished */}
+        <CenterInfoWrapper>
+          <CenterInfo count={createdProjects} isDividerExist label="create" />
+          <CenterInfo
+            count={processingProjects}
+            isDividerExist
+            label="processing"
+          />
+          <CenterInfo count={finishedProjects} label="finished" />
+        </CenterInfoWrapper>
+        {/* ProjectWrapper */}
+        <ProjectWrapper
+          isHaveProject={isNotEmptyArr(projects)}
+          isExpanded={isExpanded}>
+          {projects.map(project => (
+            <Project project={project} key={project.projectId} />
+          ))}
+        </ProjectWrapper>
+        <Button onClick={onExpandBtnClick}>
+          {isExpanded && isNotEmptyArr(projects) ? 'COLLAPSE' : 'EXPAND'}
+        </Button>
+      </CardWrapper>
+    </Outer>
   );
 }
+
+const Outer = styled.div`
+  height: 25rem;
+`;
 
 const CardWrapper = styled.div`
   width: 21.875rem;
@@ -70,6 +98,9 @@ const Title = styled.div`
   color: #555555;
 `;
 
+const WARINING = 1;
+const ALARM = 2;
+
 const Status = styled.div<{status: number}>`
   width: 1.5rem;
   height: 1.5rem;
@@ -79,9 +110,9 @@ const Status = styled.div<{status: number}>`
   top: 1rem;
   background-color: ${props => {
     switch (props.status) {
-      case 1:
+      case WARINING:
         return color.status.warning;
-      case 2:
+      case ALARM:
         return color.status.alarm;
       default:
         return color.status.idle;
@@ -96,8 +127,18 @@ const CenterInfoWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ProjectWrapper = styled.ul`
+const ProjectWrapper = styled.ul<{isExpanded: boolean; isHaveProject: boolean}>`
   margin-bottom: 1rem;
+  overflow: auto;
+  /* max-height: 8.75rem; */
+  height: ${props =>
+    props.isExpanded && props.isHaveProject ? '8.75rem' : '0rem'};
+  transition: height 0.2s;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
 `;
 
 const Button = styled.button`

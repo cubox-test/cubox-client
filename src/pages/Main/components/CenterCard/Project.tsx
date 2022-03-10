@@ -44,6 +44,12 @@ const Wrapper = styled.div`
 const LabelNormal = styled.label`
   span {
     width: 20%;
+    display: block;
+    font-size: 0.875rem;
+    text-overflow: ellipsis;
+    max-height: 1.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   display: flex;
 `;
