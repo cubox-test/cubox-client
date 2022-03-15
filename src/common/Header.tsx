@@ -22,7 +22,9 @@ function Header({isAuth}: HeaderProps) {
     <Wrapper>
       <Heading1 onClick={moveHome}>CUBOX Manager</Heading1>
       {isAuth ? (
-        <Button onClick={onClick}>로그아웃</Button>
+        <ButtonWrapper>
+          <Button onClick={onClick}>로그아웃</Button>
+        </ButtonWrapper>
       ) : (
         <nav>
           <NavItems>
@@ -91,6 +93,14 @@ const Link = styled(RouterLink)<{backgroundColor?: string}>`
   transition: all 0.2s;
   &:hover {
     filter: brightness(0.85);
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  width: 10%;
+  display: flex;
+  @media screen and (max-width: 767px) {
+    width: 15%;
   }
 `;
 

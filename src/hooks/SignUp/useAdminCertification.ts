@@ -4,7 +4,7 @@ import {useMutation} from 'react-query';
 const useAdminCertification = () => {
   const mutaions = useMutation(AuthService.certificateAdmin, {
     onError: (error: any) => {
-      console.log(error.response.data);
+      alert(error.response.data);
     },
   });
 

@@ -1,8 +1,10 @@
 import color from 'color';
 import Button, {DisabledButton} from 'common/Button';
+import useSignUp from 'hooks/SignUp/useSignUp';
 import {FormInfo, formInfos, InputName} from 'pages/SignUp/utils/FormInfo';
 import {isVerifiedName} from 'pages/SignUp/utils/validator';
-import React, {useEffect, useState} from 'react';
+import platform from 'platform';
+import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
 import AuthInput from './AuthInput/AuthInput';
 import Input from './Input';
@@ -23,7 +25,7 @@ const nameInfo = new FormInfo(
   '이름은 필수 입력사항입니다.',
 );
 
-function SignupForm(props: SignupFormProps) {
+function SignupForm({age, foreigner, name, unique_key}: SignupFormProps) {
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -43,11 +45,32 @@ function SignupForm(props: SignupFormProps) {
   const [authentication, setAuthentication] = useState(false);
   const [agree, setAgree] = useState(false);
 
+  const userAgent = useRef(platform.os?.family);
+
+  const {mutate: signup} = useSignUp();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const {email, nickName, password} = form;
+    signup({
+      age,
+      email,
+      foreigner,
+      name,
+      nickName,
+      password,
+      signed: agree,
+      roleId: covertToRoleId(autority),
+      unique_key,
+      useragent: convertOs(userAgent.current),
+    });
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {value, name} = e.target;
+    const {value, name: inputName} = e.target;
     setForm(prev => ({
       ...prev,
-      [name]: value.trim(),
+      [inputName]: value.trim(),
     }));
   };
 
@@ -107,7 +130,7 @@ function SignupForm(props: SignupFormProps) {
   }, [form.nickName]);
 
   return (
-    <Wrapper>
+    <Wrapper onSubmit={onSubmit}>
       <Title>
         회원 정보 입력
         <div>CUBOX 에 오신것을 환영합니다.</div>
@@ -167,7 +190,7 @@ function SignupForm(props: SignupFormProps) {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   margin: 0 auto;
   @media screen and (min-width: 1024px) {
     width: 34rem;
@@ -225,6 +248,23 @@ function isDisable(forms: FormInfo[], authentication: boolean, agree: boolean) {
   let disable = true;
   forms.forEach(form => (disable = form.displayValidationMsg.length > 0));
   return disable;
+}
+
+const SUPERVISOR_ROLE_ID = 2;
+const WORKER_ROLE_ID = 1;
+function covertToRoleId(roleAutority: string) {
+  switch (roleAutority) {
+    case 'supervisor':
+      return SUPERVISOR_ROLE_ID;
+    case 'worker':
+      return WORKER_ROLE_ID;
+    default:
+      return 0;
+  }
+}
+
+function convertOs(osInfo?: string) {
+  return osInfo ? osInfo : 'unkwown';
 }
 
 export default SignupForm;

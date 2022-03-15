@@ -1,29 +1,42 @@
 import AuthService from 'api/Auth/AuthService';
-import {SignUpReq} from 'api/Auth/authType';
-import {useEffect, useState} from 'react';
+import {useMutation} from 'react-query';
 import {useNavigate} from 'react-router-dom';
 
-const useSignUp = (req: SignUpReq) => {
-  const [message, setMessage] = useState('');
-
+const useSignUp = () => {
   const navigate = useNavigate();
-  const signup = async () => {
-    try {
-      await AuthService.signup(req);
+  const mutaions = useMutation(AuthService.signup, {
+    onSuccess: () => {
       navigate('/signin');
-    } catch (error: any) {
-      setMessage(error.response.data as string);
-    }
-  };
+    },
+    onError: (error: any) => {
+      alert(error.response.data);
+    },
+  });
 
-  useEffect(() => {
-    if (message) {
-      alert(message);
-      setMessage('');
-    }
-  }, [message, setMessage]);
-
-  return {signup};
+  return mutaions;
 };
+
+// const useSignUp1 = (req: SignUpReq) => {
+//   const [message, setMessage] = useState('');
+
+//   const navigate = useNavigate();
+//   const signup = async () => {
+//     try {
+//       await AuthService.signup(req);
+//       navigate('/signin');
+//     } catch (error: any) {
+//       setMessage(error.response.data as string);
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (message) {
+//       alert(message);
+//       setMessage('');
+//     }
+//   }, [message, setMessage]);
+
+//   return {signup};
+// };
 
 export default useSignUp;
