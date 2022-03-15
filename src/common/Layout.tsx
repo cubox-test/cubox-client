@@ -29,7 +29,9 @@ Layout.Header = styled.header`
   background-color: inherit;
 `;
 
-Layout.Main = styled.main``;
+Layout.Main = styled.main`
+  position: relative;
+`;
 
 Layout.Footer = styled.footer`
   margin-top: auto;

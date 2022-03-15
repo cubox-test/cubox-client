@@ -10,6 +10,12 @@ const color = {
     idle: '#5EF977',
   },
   titleDescription: '#777777',
+  gray: {
+    1: '#333333',
+    2: '#555555',
+    3: '#777777',
+    4: '#999999',
+  },
 };
 
 export default color;

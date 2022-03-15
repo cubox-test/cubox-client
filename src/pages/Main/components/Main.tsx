@@ -1,9 +1,9 @@
-import color from 'color';
 import {useQuery} from 'react-query';
 import styled from 'styled-components';
 import CenterCard from './CenterCard/CenterCard';
 import SupervisorService from 'api/Supervisor/SupervisorService';
 import Loading from 'common/Loading';
+import NoCenterMain from './NoCenterMain';
 
 interface MainProps {
   userId: string;
@@ -26,22 +26,26 @@ function Main({userId}: MainProps) {
     return <Loading />;
   }
 
+  console.log(centers);
+
   return (
     <Wrapper>
-      {centers &&
+      {centers && centers.length !== 0 ? (
         centers.map(centerInfo => (
           <CenterCard
             center={centerInfo.center}
             projects={centerInfo.project}
             key={centerInfo.center.centerId}
           />
-        ))}
+        ))
+      ) : (
+        <NoCenterMain />
+      )}
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  background-color: ${color.background};
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
