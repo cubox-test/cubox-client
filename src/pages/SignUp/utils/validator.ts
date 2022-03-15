@@ -16,9 +16,13 @@ export function isVerifiedCuboxEmail(email: string) {
 }
 
 export function isPasswordConfirmed(password: string, confirmPassword: string) {
-  return password === confirmPassword;
+  return password === confirmPassword && confirmPassword !== '';
 }
 
 export function isVerifiedPassword(password: string) {
   return password.match(passwordRegExp) != null;
+}
+
+export function isVerifiedName(name: string) {
+  return name.length !== 0;
 }

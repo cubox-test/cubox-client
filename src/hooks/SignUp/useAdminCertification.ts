@@ -1,16 +1,14 @@
 import AuthService from 'api/Auth/AuthService';
+import {useMutation} from 'react-query';
 
-const useAdminCertification = (email: string) => {
-  const authAdmin = async () => {
-    try {
-      const {certificationNumber} = await AuthService.certificateAdmin({email});
-      return certificationNumber;
-    } catch (error: any) {
-      alert(error.response.data);
-    }
-  };
+const useAdminCertification = () => {
+  const mutaions = useMutation(AuthService.certificateAdmin, {
+    onError: (error: any) => {
+      console.log(error.response.data);
+    },
+  });
 
-  return authAdmin;
+  return mutaions;
 };
 
 export default useAdminCertification;

@@ -1,3 +1,4 @@
+import Footer from 'common/Footer';
 import HeaderWithoutButton from 'common/HeaderWithoutButton';
 import Layout from 'common/Layout';
 import {useAppSelector} from 'hooks/Common/sotreHooks';
@@ -21,6 +22,9 @@ function SignInPage() {
       <Layout.Main>
         <Form />
       </Layout.Main>
+      <Layout.Footer>
+        <Footer />
+      </Layout.Footer>
     </Layout>
   );
 }

@@ -2,6 +2,8 @@ import {useState} from 'react';
 import CommonButton from 'common/Button';
 import styled from 'styled-components';
 import useSignIn from 'hooks/SignIn/useSignIn';
+import {Link as LinkStyled} from 'react-router-dom';
+import color from 'color';
 
 function Form() {
   const [form, setForm] = useState({
@@ -45,6 +47,10 @@ function Form() {
           />
         </Label>
         <Button type="submit">로그인</Button>
+        <div>
+          회원정보가 없으신가요?
+          <Link to="/certification"> 회원가입으로 이동</Link>
+        </div>
       </FormStyled>
     </Wrapper>
   );
@@ -55,7 +61,7 @@ const Wrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
-  height: 100%;
+  height: calc(100% - 6.25rem - 4rem);
 `;
 
 const FormStyled = styled.form`
@@ -92,6 +98,13 @@ const Button = styled(CommonButton)`
   width: 80%;
   margin: 1.875rem auto;
   height: 40;
+`;
+
+const Link = styled(LinkStyled)`
+  text-decoration: none;
+  &:visited {
+    color: ${color.buttonColor};
+  }
 `;
 
 export default Form;

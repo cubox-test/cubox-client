@@ -19,12 +19,16 @@ const Button = styled.button<ButtonProps>`
   &:hover {
     filter: brightness(0.85);
   }
+  width: 100%;
 `;
 
 const DisabledButton = styled.button`
   border: none;
   padding: 0.3125rem;
   background-color: gray;
+  border-radius: 0.3125rem;
+  color: white;
+  width: 100%;
 `;
 
 export {DisabledButton};
