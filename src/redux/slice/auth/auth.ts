@@ -4,12 +4,20 @@ type InitialState = {
   isAuth: boolean;
   userId: string | null;
   roleId: number | null;
+  roleAuth: {
+    isRunning: boolean;
+    isEmailProcess: boolean;
+  };
 };
 
 const initialState: InitialState = {
   isAuth: false,
   userId: null,
   roleId: null,
+  roleAuth: {
+    isRunning: false,
+    isEmailProcess: false,
+  },
 };
 
 const authSlice = createSlice({
@@ -31,8 +39,26 @@ const authSlice = createSlice({
     setUserId(state, action: PayloadAction<{userId: string | null}>) {
       state.userId = action.payload.userId;
     },
+    timerStart(state) {
+      state.roleAuth.isRunning = true;
+    },
+    timerStop(state) {
+      state.roleAuth.isRunning = false;
+    },
+    setEmailProcessStatus(
+      state,
+      action: PayloadAction<{isEmailProcess: boolean}>,
+    ) {
+      state.roleAuth.isEmailProcess = action.payload.isEmailProcess;
+    },
   },
 });
 
 export default authSlice.reducer;
-export const {authenticate, setUserId} = authSlice.actions;
+export const {
+  authenticate,
+  setUserId,
+  timerStart,
+  timerStop,
+  setEmailProcessStatus,
+} = authSlice.actions;

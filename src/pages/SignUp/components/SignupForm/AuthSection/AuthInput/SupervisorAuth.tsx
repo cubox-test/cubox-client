@@ -1,11 +1,17 @@
 import {CertificateAdminRes} from 'api/Auth/authType';
 import Button, {DisabledButton} from 'common/Button';
+import {useAppDispatch, useAppSelector} from 'hooks/Common/sotreHooks';
 import useAdminCertification from 'hooks/SignUp/useAdminCertification';
 import {FormInfo} from 'pages/SignUp/utils/FormInfo';
 import {isVerifiedCuboxEmail} from 'pages/SignUp/utils/validator';
 import React, {useEffect, useState} from 'react';
+import {
+  setEmailProcessStatus,
+  timerStart,
+  timerStop,
+} from 'redux/slice/auth/auth';
 import styled from 'styled-components';
-import InputCommon from '../Input';
+import InputCommon from '../../Input';
 
 interface SupervisorAuthProps {
   onAuthAutority(): void;
@@ -27,6 +33,13 @@ const numberInfo = new FormInfo(
   '인증번호는 6자리 입니다.',
 );
 
+const initalState = {
+  email: '',
+  number: '',
+  emailProcess: true,
+  serverNumber: 0,
+};
+
 function SupervisorAuth({onAuthAutority}: SupervisorAuthProps) {
   const [email, setEmail] = useState('');
   const [number, setNumber] = useState('');
@@ -36,13 +49,19 @@ function SupervisorAuth({onAuthAutority}: SupervisorAuthProps) {
   const [serverNumber, setServerNumber] = useState(0);
   const {mutate: authAdmin} = useAdminCertification();
   const [authorization, setAuthorization] = useState(false);
+  const {isEmailProcess, isRunning} = useAppSelector(
+    state => state.auth.roleAuth,
+  );
+  const dispatch = useAppDispatch();
 
   const onSuccess = (data: CertificateAdminRes) => {
     setServerNumber(data.certificationNumber);
     setEmailProcess(false);
+    dispatch(setEmailProcessStatus({isEmailProcess: false}));
   };
   const onClick = async () => {
     authAdmin({email}, {onSuccess});
+    dispatch(timerStart());
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +74,20 @@ function SupervisorAuth({onAuthAutority}: SupervisorAuthProps) {
   };
 
   useEffect(() => {
+    if (isInitalizeState({isEmailProcess, isRunning})) {
+      setEmail(initalState.email);
+      setEmailProcess(initalState.emailProcess);
+      setNumber(initalState.number);
+      dispatch(setEmailProcessStatus({isEmailProcess: true}));
+      dispatch(timerStop());
+    }
+  }, [isEmailProcess, isRunning, dispatch]);
+
+  useEffect(() => {
+    dispatch(setEmailProcessStatus({isEmailProcess: true}));
+  }, [dispatch]);
+
+  useEffect(() => {
     formInfo.setValidateMsg(email);
     setValidationMsg(formInfo.displayValidationMsg);
   }, [email]);
@@ -64,10 +97,17 @@ function SupervisorAuth({onAuthAutority}: SupervisorAuthProps) {
     setNumberValidationMsg(numberInfo.displayValidationMsg);
   }, [number]);
 
+  useEffect(() => {
+    return () => {
+      dispatch(timerStop());
+    };
+  }, []);
+
   const onAuthorizationAdmin = () => {
     if (isAuthrization(serverNumber, parseInt(number))) {
       onAuthAutority();
       setAuthorization(true);
+      dispatch(timerStop());
     } else {
       alert('인증번호가 틀렸습니다. 다시 확인해주세요.');
     }
@@ -140,6 +180,16 @@ const ButtonWrapper = styled.div`
 
 function isAuthrization(serverNumber: number, clientNumber: number) {
   return serverNumber === clientNumber;
+}
+
+function isInitalizeState({
+  isEmailProcess,
+  isRunning,
+}: {
+  isEmailProcess: boolean;
+  isRunning: boolean;
+}) {
+  return !isEmailProcess && !isRunning;
 }
 
 export default SupervisorAuth;

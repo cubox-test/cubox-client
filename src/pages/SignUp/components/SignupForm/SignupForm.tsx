@@ -6,7 +6,7 @@ import {isVerifiedName} from 'pages/SignUp/utils/validator';
 import platform from 'platform';
 import React, {useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
-import AuthInput from './AuthInput/AuthInput';
+import AuthSection from './AuthSection/AuthSection';
 import Input from './Input';
 import SelectInput from './SelectInput';
 import TermAgreement from './TermAgreement';
@@ -168,13 +168,7 @@ function SignupForm({age, foreigner, name, unique_key}: SignupFormProps) {
         <SelectInput onSelectChange={onSelectChange} />
       </Section>
       {autority && (
-        <Section>
-          <SectionTitle>
-            인증
-            <span> * </span>
-          </SectionTitle>
-          <AuthInput onAuthAutority={onAuthAutority} autority={autority} />
-        </Section>
+        <AuthSection autority={autority} onAuthAutority={onAuthAutority} />
       )}
       <AggrementBox>
         <TermAgreement agree={agree} onCheck={onCheck} />
