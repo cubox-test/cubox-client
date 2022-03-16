@@ -19,13 +19,18 @@ function AuthSection({autority, onAuthAutority}: AuthSectionProps) {
         <span> * </span>
       </SectionTitle>
       <AuthInput onAuthAutority={onAuthAutority} autority={autority} />
-      {isRunning && <Timer />}
+      {isRunning && (
+        <TimerWrapper>
+          <Timer />
+        </TimerWrapper>
+      )}
     </Section>
   );
 }
 
 const Section = styled.section`
   margin-top: 2.25rem;
+  position: relative;
 `;
 
 const SectionTitle = styled.div`
@@ -34,6 +39,12 @@ const SectionTitle = styled.div`
     color: ${color.status.alarm};
   }
   margin-bottom: 0.8125rem;
+`;
+
+const TimerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;
 
 export default AuthSection;
