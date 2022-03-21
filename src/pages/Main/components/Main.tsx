@@ -26,8 +26,6 @@ function Main({userId}: MainProps) {
     return <Loading />;
   }
 
-  console.log(centers);
-
   return (
     <Wrapper>
       {centers && centers.length !== 0 ? (

@@ -18,6 +18,7 @@ function CenterCard({center, projects: p}: CenterCardProps) {
     finishedProjects,
     processingProjects,
     centerStatus,
+    centerId,
   } = center;
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -41,13 +42,26 @@ function CenterCard({center, projects: p}: CenterCardProps) {
       <Status status={centerStatus} />
       {/* create, proccessing, finished */}
       <CenterInfoWrapper>
-        <CenterInfo count={createdProjects} isDividerExist label="create" />
+        <CenterInfo
+          count={createdProjects}
+          isDividerExist
+          label="create"
+          projectStatus="create"
+          centerId={centerId}
+        />
         <CenterInfo
           count={processingProjects}
           isDividerExist
           label="processing"
+          projectStatus="proccessing"
+          centerId={centerId}
         />
-        <CenterInfo count={finishedProjects} label="finished" />
+        <CenterInfo
+          count={finishedProjects}
+          label="finished"
+          projectStatus="finished"
+          centerId={centerId}
+        />
       </CenterInfoWrapper>
       {/* ProjectWrapper */}
       <ProjectWrapper
